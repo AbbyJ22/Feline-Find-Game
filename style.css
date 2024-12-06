@@ -1,3 +1,7 @@
+body {
+background-color: lightcoral;
+}
+
 .navbar {
 border: 4px solid black;
 align-items: center;
