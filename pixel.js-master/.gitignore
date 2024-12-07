@@ -1,0 +1,9 @@
+#Node.js
+node_modules/
+
+#Pixel.js
+build/pixel.js
+build/pixel.min.js
+build/pixel.js.zip
+test/
+dist/
