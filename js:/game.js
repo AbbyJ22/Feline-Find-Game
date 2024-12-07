@@ -9,24 +9,19 @@ document.onreadystatechange = function () {
             height: 600
         });
 
-        // Preload assets
-        game.assets.addImage('grass', 'assets/grass.png');
-        game.assets.load(function () {
-            // Setup the background layer
-            var backgroundLayer = game.createLayer('background');
-            backgroundLayer.static = true;
 
-            // Create the grass entity
-            var grass = backgroundLayer.createEntity();
-            grass.pos = { x: 0, y: 0 };
-            grass.asset = new PixelJS.Tile();
-            grass.asset.prepare({
-                name: 'grass',
-                size: { 
-                    width: 800, 
-                    height: 600 
-                }
-            });
+var backgroundLayer = game.createLayer('background');
+var grass = backgroundLayer.createEntity();
+backgroundLayer.static = true;
+grass.pos = { x: 0, y: 0 };
+grass.asset = new PixelJS.Tile();
+grass.asset.prepare({
+    name: 'grass.png',
+    size: { 
+        width: 800, 
+        height: 600 
+    }
+});
 
             // Add the grass entity to the layer
             backgroundLayer.addEntity(grass);
