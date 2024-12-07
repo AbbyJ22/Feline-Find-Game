@@ -8,17 +8,24 @@ document.onreadystatechange = function () {
             height: 600
         });
 
-        // Preload assets
-        game.assets.addImage('grass', 'assets/grass.png');
-        game.assets.addImage('char', 'assets/char.png');
-        game.assets.addImage('coin', 'assets/coin.png');
-        game.assets.createSound('collect', 'assets/coin.mp3');
-
-        // Wait for all assets to be loaded before starting the game
-        game.assets.load(function () {
-            console.log("Assets loaded successfully.");
-            startGame(); // Start the game once assets are loaded
-        });
+        // Ensure the assets object is initialized before using it
+        if (game.assets) {
+            console.log("Assets object initialized successfully.");
+            
+            // Preload assets
+            game.assets.addImage('grass', 'assets/grass.png');
+            game.assets.addImage('char', 'assets/char.png');
+            game.assets.addImage('coin', 'assets/coin.png');
+            game.assets.createSound('collect', 'assets/coin.mp3');
+            
+            // Wait for all assets to be loaded before starting the game
+            game.assets.load(function () {
+                console.log("Assets loaded successfully.");
+                startGame(); // Start the game once assets are loaded
+            });
+        } else {
+            console.error("Error: game.assets is not initialized.");
+        }
 
         function startGame() {
             // Initialize layers and entities
@@ -31,7 +38,7 @@ document.onreadystatechange = function () {
             grass.pos = { x: 0, y: 0 };
             grass.asset = new PixelJS.Tile();
             grass.asset.prepare({
-                name: 'grass', // Use the asset name, not the file name
+                name: 'grass', // Use the asset name
                 size: { width: 800, height: 600 }
             });
 
