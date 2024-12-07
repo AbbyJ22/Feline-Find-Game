@@ -1,5 +1,5 @@
 document.onreadystatechange = function () {
-    if (document.readyState == "complete") {
+    if (document.readyState === "complete") {
         // Initialize the PixelJS engine
         var game = new PixelJS.Engine();
         game.init({
@@ -8,34 +8,34 @@ document.onreadystatechange = function () {
             height: 600
         });
 
-        // Create background layer and grass entity
-        var backgroundLayer = game.createLayer('background');
-        var grass = backgroundLayer.createEntity();
-        backgroundLayer.static = true;
-        grass.pos = { x: 0, y: 0 };
-        grass.asset = new PixelJS.Tile();
-        grass.asset.prepare({
-            name: 'grass.png', // Make sure 'grass.png' is in the correct folder (assets)
-            size: { 
-                width: 800, 
-                height: 600 
-            }
-        });
-        
-        // Preload images and sounds
+        // Preload assets
         game.assets.addImage('grass', 'assets/grass.png');
         game.assets.addImage('char', 'assets/char.png');
         game.assets.addImage('coin', 'assets/coin.png');
+        game.assets.createSound('collect', 'assets/coin.mp3');
+
+        // Wait for all assets to be loaded before starting the game
         game.assets.load(function () {
-            // When all assets are loaded, start the game
-            startGame();
+            console.log("Assets loaded successfully.");
+            startGame(); // Start the game once assets are loaded
         });
 
-        // Function to initialize and start the game
         function startGame() {
+            // Initialize layers and entities
             var score = 0;
 
-            // Create player layer and player entity
+            // Background layer and grass entity
+            var backgroundLayer = game.createLayer('background');
+            var grass = backgroundLayer.createEntity();
+            backgroundLayer.static = true;
+            grass.pos = { x: 0, y: 0 };
+            grass.asset = new PixelJS.Tile();
+            grass.asset.prepare({
+                name: 'grass', // Use the asset name, not the file name
+                size: { width: 800, height: 600 }
+            });
+
+            // Player layer and player entity
             var playerLayer = game.createLayer('players');
             var player = new PixelJS.Player();
             player.addToLayer(playerLayer);
@@ -43,22 +43,22 @@ document.onreadystatechange = function () {
             player.size = { width: 32, height: 32 };
             player.velocity = { x: 100, y: 100 };
             player.asset = new PixelJS.AnimatedSprite();
-            player.asset.prepare({ 
-                name: 'char.png', 
-                frames: 3, 
+            player.asset.prepare({
+                name: 'char', // Use the asset name
+                frames: 3,
                 rows: 4,
                 speed: 100,
                 defaultFrame: 1
             });
 
-            // Create item layer and coin entity
+            // Item layer and coin entity
             var itemLayer = game.createLayer('items');
             var coin = itemLayer.createEntity();
             coin.pos = { x: 400, y: 150 };
             coin.size = { width: 12, height: 16 };
             coin.asset = new PixelJS.AnimatedSprite();
             coin.asset.prepare({
-                name: 'coin.png',
+                name: 'coin', // Use the asset name
                 frames: 8,
                 rows: 1,
                 speed: 80,
@@ -69,53 +69,47 @@ document.onreadystatechange = function () {
             var collectSound = game.createSound('collect');
             collectSound.prepare({ name: 'coin.mp3' });
 
-            // Score layer to display score
+            // Score layer to display the score
             var scoreLayer = game.createLayer("score");
             scoreLayer.static = true;
             scoreLayer.drawText(
-                'Coins: ' + score, 
-                50, 
-                50, 
-                '14pt "Trebuchet MS", Helvetica, sans-serif', 
+                'Coins: ' + score,
+                50,
+                50,
+                '14pt "Trebuchet MS", Helvetica, sans-serif',
                 '#FFFFFF',
                 'left'
             );
 
-            // Collision detection and coin collection
+            // Collision detection and score updates
             player.onCollide(function (entity) {
                 if (entity === coin) {
-                    collectSound.play();
-
-                    // Move the coin to a random position
+                    collectSound.play(); // Play sound when player collects coin
                     coin.pos = {
                         x: Math.floor(Math.random() * (700 - 100 + 1) + 100),
                         y: Math.floor(Math.random() * (500 - 100 + 1) + 100)
                     };
-
-                    // Update the score
                     score += 1;
                     scoreLayer.redraw = true;
                     scoreLayer.drawText(
-                        'Coins: ' + score, 
-                        50, 
-                        50, 
-                        '14pt "Trebuchet MS", Helvetica, sans-serif', 
+                        'Coins: ' + score,
+                        50,
+                        50,
+                        '14pt "Trebuchet MS", Helvetica, sans-serif',
                         '#FFFFFF',
                         'left'
                     );
                 }
             });
 
-            // Register collision entities
+            // Register entities for collision
             playerLayer.registerCollidable(player);
             itemLayer.registerCollidable(coin);
 
-            // Game loop
-            game.loadAndRun(function (elapsedTime, dt) {
-                // Game logic can go here
+            // Start the game loop
+            game.run(function (elapsedTime, dt) {
+                // Game logic can go here if needed
             });
         }
     }
 };
-
-}
