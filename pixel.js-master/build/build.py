@@ -1,7 +1,5 @@
-# Requires the Slimit JavaScript minifier, see https://pypi.python.org/pypi/slimit
-
 import os
-from slimit import minify
+from jsmin import jsmin  # Change this to jsmin
 
 root = os.path.dirname(os.path.realpath(__file__))
 modules = [
@@ -35,7 +33,7 @@ copyright_block = """// Copyright (C) 2013-2014 rastating
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program.  If not, see http://www.gnu.org/licenses/."""
+// along with this program.  If not, see http://www.gnu.org/licenses."""
 
 with open(root + '/pixel.js', 'w') as outfile:
     for name in modules:
@@ -46,6 +44,7 @@ with open(root + '/pixel.js', 'w') as outfile:
                 compiled = compiled + module.read() + "\r\n"
             processed_first_file = True
     outfile.write(compiled)
-    
+
 with open(root + '/pixel.min.js', 'w') as outfile:
-    outfile.write(minify(compiled, mangle=False, mangle_toplevel=False))
+    outfile.write(jsmin(compiled))  # Use jsmin instead of minify
+
