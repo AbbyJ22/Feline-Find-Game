@@ -9,5 +9,19 @@ document.onreadystatechange = function () {
         
         game.run(function (elapsedTime, dt) {
         });
+
+        var backgroundLayer = game.createLayer('background');
+var grass = backgroundLayer.createEntity();
+backgroundLayer.static = true;
+grass.pos = { x: 0, y: 0 };
+grass.asset = new PixelJS.Tile();
+grass.asset.prepare({
+    name: 'grass.png',
+    size: { 
+        width: 800, 
+        height: 600 
+    }
+});
     }
 }
+
