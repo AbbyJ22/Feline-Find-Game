@@ -11,12 +11,12 @@ document.onreadystatechange = function () {
         });
 
         var backgroundLayer = game.createLayer('background');
-var grass = backgroundLayer.createEntity();
+var fence = backgroundLayer.createEntity();
 backgroundLayer.static = true;
-grass.pos = { x: 0, y: 0 };
-grass.asset = new PixelJS.Tile();
-grass.asset.prepare({
-    name: 'grass.png',
+fence.pos = { x: 0, y: 0 };
+fence.asset = new PixelJS.Tile();
+fence.asset.prepare({
+    name: 'fence.png',
     size: { 
         width: 800, 
         height: 600 
