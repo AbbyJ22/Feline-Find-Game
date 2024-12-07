@@ -9,8 +9,10 @@ document.onreadystatechange = function () {
         });
 
         // Preload assets
-        game.assets.addImage('grass', 'assets/grass.png'); // Correctly preloading grass asset
-        game.assets.load(function () {
+        game.assets.addImage('grass', 'assets/grass.png');
+
+        // Load assets and start the game loop
+        game.loadAndRun(function (elapsedTime, dt) {
             // Setup the background layer
             var backgroundLayer = game.createLayer('background');
             backgroundLayer.static = true;
@@ -30,10 +32,7 @@ document.onreadystatechange = function () {
             // Add the grass entity to the layer
             backgroundLayer.addEntity(grass);
 
-            // Run the game loop
-            game.run(function (elapsedTime, dt) {
-                // Game logic can go here
-            });
+            // Game logic can go here
         });
     }
 };
