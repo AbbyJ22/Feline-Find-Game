@@ -30,7 +30,7 @@ document.onreadystatechange = function () {
 
         fence.asset = new PixelJS.Tile();
         fence.asset.prepare({
-            name: 'fence.png',
+            name: 'assets/fence.png',
             size: { 
                 width: 800,  
                 height: 600  
