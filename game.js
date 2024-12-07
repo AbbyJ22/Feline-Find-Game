@@ -1,40 +1,41 @@
 document.onreadystatechange = function () {
-    if (document.readyState === "complete") {
-        // Initialize PixelJS engine
-        var game = new PixelJS.Engine();
+    if (document.readyState == "complete") {
 
+        var game = new PixelJS.Engine();
+        
+       
         game.init({
             container: 'game_container',
             width: 800,
             height: 600
         });
 
-        // Preload assets
-        game.assets.addImage('fence', 'assets/fence.png');
-        game.assets.load(function () {
-            // Once assets are loaded, set up the game
-            var backgroundLayer = game.createLayer('background');
-            backgroundLayer.static = true;
+        
 
-            // Create the fence entity
-            var fence = backgroundLayer.createEntity();
-            fence.pos = { x: 0, y: 0 };
-            fence.asset = new PixelJS.Tile();
-            fence.asset.prepare({
-                name: 'fence',
-                size: {
-                    width: 800,
-                    height: 600
-                }
-            });
 
-            // Add the entity to the layer
-            backgroundLayer.addEntity(fence);
+        var backgroundLayer = game.createLayer('background');
+        
 
-            // Run the game loop
-            game.run(function (elapsedTime, dt) {
-                // Game logic here
-            });
+        var fence = backgroundLayer.createEntity();
+        
+
+        backgroundLayer.static = true;
+        
+    
+        fence.pos = { x: 0, y: 0 };
+
+
+        fence.asset = new PixelJS.Tile();
+        fence.asset.prepare({
+            name: 'fence.png',
+            size: { 
+                width: 800,  
+                height: 600  
+            }
+        });
+        // Run the game loop
+        game.run(function (elapsedTime, dt) {
+
         });
     }
-};
+}
