@@ -10,7 +10,7 @@ document.onreadystatechange = function () {
         });
 
         // Preload assets
-        game.assets.addImage('grass', 'grass.png');
+        game.assets.addImage('grass', 'assets.grass.png');
         game.assets.load(function () {
             // Setup the background layer
             var backgroundLayer = game.createLayer('background');
