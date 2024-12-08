@@ -23,5 +23,5 @@ function create() {
      bg.setDisplaySize(config.width, config.height);
      bg.setOrigin(0.5, 0.5); 
     
-    console.log ("hi");
+    console.log ("hello");
 }
