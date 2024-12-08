@@ -36,7 +36,7 @@ function create() {
     bg.setPosition(bgWidth / 2, bgHeight / 2);  // Centers the image
 
     // Optionally, set the display size for scaling, if needed (can be omitted if the original size works)
-    bg.setDisplaySize(bgWidth, bgHeight);
+    bg.setDisplaySize(1000, 1000);
     
     console.log("Canvas size adjusted to the background image");
 }
