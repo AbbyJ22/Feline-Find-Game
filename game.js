@@ -6,7 +6,7 @@ const config = {
     scene: {
         preload: preload,
         create: create
-    }
+    },   pixelArt: true, 
 };
 
 
@@ -23,6 +23,6 @@ function create() {
      bg.setDisplaySize(config.width, config.height);
      bg.setScale(1);
      bg.setOrigin(0.5, 0.5); 
-    this.game.config.renderer.renderTexture.canvas.imageSmoothingEnabled = false; 
+    
     console.log ("hi");
 }
