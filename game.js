@@ -20,4 +20,5 @@ function preload() {
 function create() {
     // Add background
     this.add.image(400, 300, 'fence');
+     bg.setDisplaySize(config.width, config.height);
 }
