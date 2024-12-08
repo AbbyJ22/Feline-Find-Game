@@ -1,8 +1,10 @@
 body {
 background-color: lightblue;
+ display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .navbar {
 border: 4px solid black;
-justify-content: space-evenly;
 }
