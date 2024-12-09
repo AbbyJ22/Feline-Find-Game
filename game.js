@@ -61,11 +61,26 @@ class GameScene extends Phaser.Scene {
 
     preload() {
         this.load.image('fence', 'assets/fence.png');
+        this.load.spritesheet('mcIdle', 'assets/sprites/mcIdle.png', {
+            frameWidth: 32,
+            frameHeight: 32
+        });
     }
 
     create() {
         const bg = this.add.image(0, 0, 'fence').setOrigin(0);
         bg.setDisplaySize(1372, 453);
+
+        this.anims.create({
+        key: 'Idle',
+        frames: this.anims.generateFrameNumbers('mc', { start: 0, end: 2 }), // Frames 0 to 3
+        frameRate: 2, 
+        repeat: -1 
+    });
+
+        this.mcIdle = this.add.sprite(100, 200, 'mcIdle'); 
+
+        this.mc.anims.play('mcIdle');
     }
 }
 
