@@ -30,23 +30,7 @@ function create() {
 
     // Set the world bounds to match the background size
     this.physics.world.setBounds(0, 0, displayWidth, displayHeight);
-
-    // Make the camera follow the player or move manually
-    this.cameras.main.setBounds(0, 0, displayWidth, displayHeight);
-
-    // Position the camera in the middle of the background initially
-    this.cameras.main.scrollX = displayWidth / 2 - config.width / 2;
-
-    // Add keyboard input for manual scrolling (for now)
-    this.cursors = this.input.keyboard.createCursorKeys();
 }
 
-function update() {
-    // Check for left/right input to scroll the camera
-    if (this.cursors.left.isDown) {
-        this.cameras.main.scrollX -= 5; // Move camera left
-    }
-    if (this.cursors.right.isDown) {
-        this.cameras.main.scrollX += 5; // Move camera right
-    }
-}
+
+
