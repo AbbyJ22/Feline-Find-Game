@@ -3,7 +3,7 @@ background-color: lightblue;
 
  @font-face {
    font-family: "CustomFont";
-   src: url("assets/04B_30__.TTF") format("truetype");
+   src: url("assets/gamefont.TTF") format("truetype");
 }
 
 
