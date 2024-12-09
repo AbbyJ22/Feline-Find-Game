@@ -73,7 +73,7 @@ class GameScene extends Phaser.Scene {
 
         this.anims.create({
         key: 'Idle',
-        frames: this.anims.generateFrameNumbers('mc', { start: 0, end: 2 }), // Frames 0 to 3
+        frames: this.anims.generateFrameNumbers('mcIdle', { start: 0, end: 2 }), 
         frameRate: 2, 
         repeat: -1 
     });
