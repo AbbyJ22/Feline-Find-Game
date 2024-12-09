@@ -24,8 +24,8 @@ function create() {
     bg = this.add.image(0, 0, 'fence').setOrigin(0);
 
     // Scale the background to a larger size
-    const displayWidth = 970;
-    const displayHeight = 320;
+    const displayWidth = 1680;
+    const displayHeight = 554;
     bg.setDisplaySize(displayWidth, displayHeight);
 }
 
