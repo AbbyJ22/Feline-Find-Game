@@ -5,10 +5,16 @@ class StartMenuScene extends Phaser.Scene {
     }
 
     preload() {
-        // Load assets for the start menu, if any
+         this.load.image('mainbg', 'assets/mainbg.png');
     }
 
     create() {
+
+        this.bg = this.add.tileSprite(0, 0, 1372, 453, 'mainbg').setOrigin(0);
+        this.bg.setDisplaySize(1372, 453);
+
+
+
         // Add a title
         this.add.text(config.width / 2, config.height / 3, 'My Game', {
             fontFamily: 'CustomFont',
@@ -27,6 +33,10 @@ class StartMenuScene extends Phaser.Scene {
         playButton.on('pointerdown', () => {
             this.scene.start('GameScene');
         });
+    }
+    update() {
+        // Scroll the background horizontally
+        this.bg.tilePositionX += 1; // Adjust the speed as needed
     }
 }
 
