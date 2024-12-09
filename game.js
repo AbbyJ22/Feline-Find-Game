@@ -16,14 +16,14 @@ class StartMenuScene extends Phaser.Scene {
 
 
         // Add a title
-        this.add.text(config.width / 2, config.height / 3, 'My Game', {
+        this.add.text(config.width / 2, config.height / 3, 'Feline Find Game', {
             fontFamily: 'CustomFont',
             fontSize: '40px',
             fill: '#e08543',
         }).setOrigin(0.5);
 
         // Add a "Play" button
-        const playButton = this.add.text(config.width / 2, config.height / 2, 'Play', {
+        const playButton = this.add.text(config.width / 2, config.height / 2, 'Start', {
             fontFamily: 'CustomFont',
             fontSize: '30px',
             fill: '#663c1f',
