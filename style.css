@@ -1,6 +1,6 @@
 body {
 background-color: lightblue;
-
+}
  @font-face {
    font-family: "CustomFont";
   src: url('assets/fonts/gamefont-webfont.woff2') format('woff2'),
