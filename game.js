@@ -24,14 +24,14 @@ class StartMenuScene extends Phaser.Scene {
         this.add.text(config.width / 2, config.height / 3, 'My Game', {
             fontFamily: 'CustomFont',
             fontSize: '40px',
-            fill: '##e08543',
+            fill: '#e08543',
         }).setOrigin(0.5);
 
         // Add a "Play" button
         const playButton = this.add.text(config.width / 2, config.height / 2, 'Play', {
             fontFamily: 'CustomFont',
             fontSize: '30px',
-            fill: '##663c1f',
+            fill: '#663c1f',
         }).setOrigin(0.5);
 
         // Make the button interactive
