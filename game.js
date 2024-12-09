@@ -23,7 +23,7 @@ class StartMenuScene extends Phaser.Scene {
         const playButton = this.add.text(config.width / 2, config.height / 2, 'Start', {
             fontFamily: 'CustomFont',
             fontSize: '30px',
-            fill: '#e08543',
+            fill: '#FF4500',
         })
         .setOrigin(0.5)
         .setShadow(5, 5, '#000000', 0, true, true); // Add shadow to the button
