@@ -6,9 +6,9 @@ const config = {
     scene: {
         preload: preload,
         create: create
-    },   pixelArt: true, 
+    },
+    pixelArt: true,
 };
-
 
 const game = new Phaser.Game(config);
 
@@ -18,25 +18,19 @@ function preload() {
 }
 
 function create() {
-    // Get the background image
+    // Add the background image
     const bg = this.add.image(0, 0, 'fence');
-    
-    // Set the canvas size to match the background size
-    const bgWidth = bg.width;
-    const bgHeight = bg.height;
-    
-    // Resize the Phaser game canvas to match the image
-    this.game.config.width = bgWidth;
-    this.game.config.height = bgHeight;
-    
-    // Update the renderer with the new size
-    this.game.scale.resize(bgWidth, bgHeight);
-    
-    // Now center the background image (in case the canvas size was changed after loading)
-    bg.setPosition(bgWidth / 2, bgHeight / 2);  // Centers the image
 
-    // Optionally, set the display size for scaling, if needed (can be omitted if the original size works)
-    bg.setDisplaySize(1000, 1000);
-    
-    console.log("Canvas size adjusted to the background image");
+    // Set the display size of the background image (scaling to 1000x1000)
+    const displayWidth = 1000;
+    const displayHeight = 1000;
+    bg.setDisplaySize(displayWidth, displayHeight);
+
+    // Update the Phaser game canvas size to match the scaled image size
+    this.game.scale.resize(displayWidth, displayHeight);
+
+    // Center the background image on the resized canvas
+    bg.setPosition(displayWidth / 2, displayHeight / 2);
+
+    console.log("Canvas resized to fit the background image.");
 }
