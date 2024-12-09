@@ -22,12 +22,14 @@ class StartMenuScene extends Phaser.Scene {
     create() {
         // Add a title
         this.add.text(config.width / 2, config.height / 3, 'My Game', {
+            fontFamily: 'CustomFont',
             fontSize: '40px',
             fill: '#fff',
         }).setOrigin(0.5);
 
         // Add a "Play" button
         const playButton = this.add.text(config.width / 2, config.height / 2, 'Play', {
+            fontFamily: 'CustomFont',
             fontSize: '30px',
             fill: '#0f0',
         }).setOrigin(0.5);

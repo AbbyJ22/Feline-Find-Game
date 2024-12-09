@@ -1,6 +1,11 @@
 body {
 background-color: lightblue;
+
+ @font-face {
+   font-family: "CustomFont";
+   src: url("assets/04B_30__.TTF") format("truetype");
 }
+
 
 .navbar {
 border: 4px solid black;
