@@ -29,6 +29,14 @@ class StartMenuScene extends Phaser.Scene {
         }).setOrigin(0.5);
 
         playButton.setInteractive();
+        playButton.on('pointerover', () => {
+    playButton.setScale(1.2); // Increase the size by 20%
+});
+
+// On hover out: reset the button size
+playButton.on('pointerout', () => {
+    playButton.setScale(1); // Reset to the original size
+});
         playButton.on('pointerdown', () => {
             this.scene.start('GameScene');
         });
