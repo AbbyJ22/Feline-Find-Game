@@ -28,8 +28,10 @@ function create() {
     const displayHeight = 320;
     bg.setDisplaySize(displayWidth, displayHeight);
 
-console.log("WORK");
+    console.log("WORK");
 }
 
-
-
+function update() {
+    // Add game logic here if needed
+    console.log("Update loop running...");
+}
