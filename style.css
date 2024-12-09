@@ -8,6 +8,7 @@ background-color: lightblue;
 
 
 .navbar {
+background-color: #5C4033;
 border: 4px solid black;
  font-family: 'CustomFont', sans-serif;
  font-size: 15px;
@@ -21,7 +22,7 @@ border: 4px solid black;
 
 .title {
   margin: auto;
-   font-family: 'CustomFont', sans-serif;
+  font-family: 'CustomFont', sans-serif;
   margin-top: 5px;
   padding: 10px;
   width: 60%;
@@ -30,9 +31,9 @@ border: 4px solid black;
 }
 
 #game-container {
-	background-color: #5C4033;
-	 width: fit-content;
-	border: 4px solid black;
+  background-color: #5C4033;
+  width: fit-content;
+  border: 4px solid black;
   margin: auto;
   padding: 10px;
   overflow: hidden;
