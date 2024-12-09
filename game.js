@@ -27,8 +27,6 @@ function create() {
     const displayWidth = 970;
     const displayHeight = 320;
     bg.setDisplaySize(displayWidth, displayHeight);
-
-    console.log("WORK");
 }
 
 function update() {
