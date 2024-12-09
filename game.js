@@ -28,8 +28,7 @@ function create() {
     const displayHeight = 320;
     bg.setDisplaySize(displayWidth, displayHeight);
 
-    // Set the world bounds to match the background size
-    this.physics.world.setBounds(0, 0, displayWidth, displayHeight);
+console.log("WORK");
 }
 
 
