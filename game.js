@@ -1,35 +1,67 @@
 const config = {
     type: Phaser.AUTO,
-    width: 657, // Visible canvas width
-    height: 453, // Visible canvas height
+    width: 657, // Canvas width
+    height: 453, // Canvas height
     parent: 'game-container',
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
-    },
+    scene: [StartMenuScene, GameScene], // Add both scenes here
     pixelArt: true,
 };
 
 const game = new Phaser.Game(config);
-let bg;
 
-function preload() {
-    // Load assets
-    this.load.image('fence', 'assets/fence.png');
+// Start Menu Scene
+class StartMenuScene extends Phaser.Scene {
+    constructor() {
+        super({ key: 'StartMenuScene' });
+    }
+
+    preload() {
+        // Load assets for the start menu, if any
+    }
+
+    create() {
+        // Add a title
+        this.add.text(config.width / 2, config.height / 3, 'My Game', {
+            fontSize: '40px',
+            fill: '#fff',
+        }).setOrigin(0.5);
+
+        // Add a "Play" button
+        const playButton = this.add.text(config.width / 2, config.height / 2, 'Play', {
+            fontSize: '30px',
+            fill: '#0f0',
+        }).setOrigin(0.5);
+
+        // Make the button interactive
+        playButton.setInteractive();
+        playButton.on('pointerdown', () => {
+            this.scene.start('GameScene'); // Start the game scene when clicked
+        });
+    }
 }
 
-function create() {
-    // Add the background image (position it at 0, 0 relative to world coordinates)
-    bg = this.add.image(0, 0, 'fence').setOrigin(0);
+// Game Scene
+class GameScene extends Phaser.Scene {
+    constructor() {
+        super({ key: 'GameScene' });
+    }
 
-    // Scale the background to a larger size
-    const displayWidth = 1372;
-    const displayHeight = 453;
-    bg.setDisplaySize(displayWidth, displayHeight);
-}
+    preload() {
+        // Load assets for the game
+        this.load.image('fence', 'assets/fence.png');
+    }
 
-function update() {
-    // Add game logic here if needed
-    console.log("Update loop running...");
+    create() {
+        // Add the background image
+        const bg = this.add.image(0, 0, 'fence').setOrigin(0);
+
+        // Scale the background to fit the game world
+        const displayWidth = 1372;
+        const displayHeight = 453;
+        bg.setDisplaySize(displayWidth, displayHeight);
+    }
+
+    update() {
+        // Add game logic here if needed
+    }
 }
