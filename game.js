@@ -1,7 +1,7 @@
 const config = {
     type: Phaser.AUTO,
-    width: 693, // Visible canvas width
-    height: 554, // Visible canvas height
+    width: 657, // Visible canvas width
+    height: 526, // Visible canvas height
     parent: 'game-container',
     scene: {
         preload: preload,
@@ -24,8 +24,8 @@ function create() {
     bg = this.add.image(0, 0, 'fence').setOrigin(0);
 
     // Scale the background to a larger size
-    const displayWidth = 1680;
-    const displayHeight = 554;
+    const displayWidth = 1372;
+    const displayHeight = 453;
     bg.setDisplaySize(displayWidth, displayHeight);
 }
 
