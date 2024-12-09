@@ -18,7 +18,7 @@ class StartMenuScene extends Phaser.Scene {
             fontSize: '40px',
             fill: '#e08543',
         }).setOrigin(0.5);
-        .setShadow(5, 5, '#000000', 10, true, true); // Add shadow to the title
+        .setShadow(5, 5, '#000000', 0, true, true); // Add shadow to the title
 
         // Add a "Play" button
         const playButton = this.add.text(config.width / 2, config.height / 2, 'Start', {
@@ -26,16 +26,18 @@ class StartMenuScene extends Phaser.Scene {
             fontSize: '30px',
             fill: '#e08543',
         }).setOrigin(0.5);
-        .setShadow(5, 5, '#000000', 10, true, true); // Add shadow to the title
+        .setShadow(5, 5, '#000000', 0, true, true); // Add shadow to the title
 
         playButton.setInteractive();
         playButton.on('pointerover', () => {
     playButton.setScale(1.2); // Increase the size by 20%
+    .setShadow(5, 5, '#000000', 0, true, true); // Add shadow to the title
 });
 
 // On hover out: reset the button size
 playButton.on('pointerout', () => {
     playButton.setScale(1); // Reset to the original size
+    .setShadow(5, 5, '#000000', 0, true, true); // Add shadow to the title
 });
         playButton.on('pointerdown', () => {
             this.scene.start('GameScene');
