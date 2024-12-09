@@ -10,8 +10,7 @@ class StartMenuScene extends Phaser.Scene {
 
     create() {
 
-        this.bg = this.add.tileSprite(0, 0, 1372, 453, 'mainbg').setOrigin(0);
-        this.bg.setDisplaySize(1372, 453);
+           this.bg = this.add.tileSprite(0, 0, config.width, config.height, 'mainbg').setOrigin(0);
 
 
 
