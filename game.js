@@ -1,7 +1,7 @@
 const config = {
     type: Phaser.AUTO,
-    width: 800, // Visible canvas width
-    height: 600, // Visible canvas height
+    width: 400, // Visible canvas width
+    height: 300, // Visible canvas height
     parent: 'game-container',
     scene: {
         preload: preload,
