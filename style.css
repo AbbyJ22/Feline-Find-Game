@@ -7,6 +7,9 @@ background-color: lightblue;
      url('assets/fonts/gamefont-webfont.woff') format('woff');
 
 }
+canvas {
+    display: block;
+}
 
 
 .navbar {
