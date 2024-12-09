@@ -10,50 +10,50 @@ class StartMenuScene extends Phaser.Scene {
     create() {
         this.bg = this.add.tileSprite(0, 0, config.width, config.height, 'mainbg').setOrigin(0);
 
-        // Add a title with a shadow
+       
         this.add.text(config.width / 2, config.height / 3, 'Feline Find Game', {
             fontFamily: 'CustomFont',
             fontSize: '40px',
             fill: '#e08543',
         })
         .setOrigin(0.5)
-        .setShadow(5, 5, '#000000', 0, true, true); // Add shadow to the title
+        .setShadow(5, 5, '#000000', 0, true, true); 
 
-        // Add a "Play" button with a shadow
+        
         const playButton = this.add.text(config.width / 2, config.height / 2, 'Start', {
             fontFamily: 'CustomFont',
             fontSize: '30px',
             fill: '#00FFFF',
         })
         .setOrigin(0.5)
-        .setShadow(5, 5, '#000000', 0, true, true); // Add shadow to the button
+        .setShadow(5, 5, '#000000', 0, true, true); 
 
         playButton.setInteractive();
 
-        // On hover: increase the size
+       
         playButton.on('pointerover', () => {
-            playButton.setScale(1.2); // Increase the size by 20%
+            playButton.setScale(1.2); 
         });
 
-        // On hover out: reset the button size
+        
         playButton.on('pointerout', () => {
-            playButton.setScale(1); // Reset to the original size
+            playButton.setScale(1); 
         });
 
-        // On click: start the GameScene
+        
         playButton.on('pointerdown', () => {
             this.scene.start('GameScene');
         });
     }
 
     update() {
-        // Scroll the background horizontally
-        this.bg.tilePositionX += 1; // Adjust the speed as needed
+        
+        this.bg.tilePositionX += 1; 
     }
 }
 
 
-// Game Scene
+
 class GameScene extends Phaser.Scene {
     constructor() {
         super({ key: 'GameScene' });
@@ -69,7 +69,7 @@ class GameScene extends Phaser.Scene {
     }
 }
 
-// Config
+
 const config = {
     type: Phaser.AUTO,
     width: 657,
@@ -79,5 +79,5 @@ const config = {
     pixelArt: true,
 };
 
-// Create the game
+
 const game = new Phaser.Game(config);
