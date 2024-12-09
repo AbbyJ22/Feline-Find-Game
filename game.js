@@ -32,5 +32,5 @@ function create() {
     // Center the background image on the resized canvas
     bg.setPosition(displayWidth / 2, displayHeight / 2);
 
-    console.log("Canvas resized to fit the background image.");
+    console.log("Canvas resized");
 }
