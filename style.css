@@ -3,7 +3,9 @@ background-color: lightblue;
 
  @font-face {
    font-family: "CustomFont";
-   src: url("assets/gamefont.TTF") format("truetype");
+  src: url('assets/fonts/gamefont-webfont.woff2') format('woff2'),
+     url('assets/fonts/gamefont-webfont.woff') format('woff');
+
 }
 
 
