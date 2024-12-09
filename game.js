@@ -22,8 +22,8 @@ function create() {
     const bg = this.add.image(0, 0, 'fence');
 
   
-    const displayWidth = 531;
-    const displayHeight = 175;
+    const displayWidth = 686;
+    const displayHeight = 226;
     bg.setDisplaySize(displayWidth, displayHeight);
 
 
