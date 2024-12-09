@@ -12,8 +12,6 @@ class StartMenuScene extends Phaser.Scene {
 
            this.bg = this.add.tileSprite(0, 0, config.width, config.height, 'mainbg').setOrigin(0);
 
-.setScale( 1372 / this.bg.width, 453 / this.bg.height);
-
         // Add a title
         this.add.text(config.width / 2, config.height / 3, 'Feline Find Game', {
             fontFamily: 'CustomFont',
