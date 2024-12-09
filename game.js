@@ -1,14 +1,3 @@
-const config = {
-    type: Phaser.AUTO,
-    width: 657, // Canvas width
-    height: 453, // Canvas height
-    parent: 'game-container',
-    scene: [StartMenuScene, GameScene], // Add both scenes here
-    pixelArt: true,
-};
-
-const game = new Phaser.Game(config);
-
 // Start Menu Scene
 class StartMenuScene extends Phaser.Scene {
     constructor() {
@@ -34,10 +23,9 @@ class StartMenuScene extends Phaser.Scene {
             fill: '#663c1f',
         }).setOrigin(0.5);
 
-        // Make the button interactive
         playButton.setInteractive();
         playButton.on('pointerdown', () => {
-            this.scene.start('GameScene'); // Start the game scene when clicked
+            this.scene.start('GameScene');
         });
     }
 }
@@ -49,21 +37,24 @@ class GameScene extends Phaser.Scene {
     }
 
     preload() {
-        // Load assets for the game
         this.load.image('fence', 'assets/fence.png');
     }
 
     create() {
-        // Add the background image
         const bg = this.add.image(0, 0, 'fence').setOrigin(0);
-
-        // Scale the background to fit the game world
-        const displayWidth = 1372;
-        const displayHeight = 453;
-        bg.setDisplaySize(displayWidth, displayHeight);
-    }
-
-    update() {
-        // Add game logic here if needed
+        bg.setDisplaySize(1372, 453);
     }
 }
+
+// Config
+const config = {
+    type: Phaser.AUTO,
+    width: 657,
+    height: 453,
+    parent: 'game-container',
+    scene: [StartMenuScene, GameScene],
+    pixelArt: true,
+};
+
+// Create the game
+const game = new Phaser.Game(config);
