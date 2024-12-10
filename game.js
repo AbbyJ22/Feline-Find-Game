@@ -136,6 +136,10 @@ showText(text, options) {
     };
     this.add.text(boxX + 10, boxY + 10, text, textStyle); // Add some padding for the text
 
+    // Store option boxes and texts for removal later
+    const optionBoxes = [];
+    const optionTexts = [];
+
     // Add option buttons
     options.forEach((option, index) => {
         const optionBoxWidth = 400;
@@ -173,10 +177,17 @@ showText(text, options) {
 
         // Option click interaction
         optionText.on('pointerdown', () => {
-            option.action(); // Trigger the option's action
-            optionBox.clear(); // Clear the option box (background)
-            optionText.destroy(); // Remove the text
+            // Trigger the option's action
+            option.action();
+
+            // Clear both options
+            optionBoxes.forEach(box => box.clear()); // Clear all option boxes
+            optionTexts.forEach(text => text.destroy()); // Destroy all option texts
         });
+
+        // Store the option box and text for later removal
+        optionBoxes.push(optionBox);
+        optionTexts.push(optionText);
     });
 }
 }
