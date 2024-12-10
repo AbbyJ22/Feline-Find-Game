@@ -194,7 +194,7 @@ showText(text, options) {
         });
 
         optionText.on('pointerout', () => {
-            optionText.setStyle({ color: '#FFFFFF' }); // Reset color on hover out
+            optionText.setStyle({ color: '#000000' }); // Reset color on hover out
         });
 
         // Option click interaction
