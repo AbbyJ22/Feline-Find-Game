@@ -187,6 +187,6 @@ showText(text, options) {
         });
     });
 }
-};
+}
 const game = new Phaser.Game(config);
 
