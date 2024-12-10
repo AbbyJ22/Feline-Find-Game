@@ -106,8 +106,16 @@ class GameScene extends Phaser.Scene {
     showText(text, options) {
         // Create a textbox background
         const textbox = this.add.graphics();
-        textbox.fillStyle(0xE5AA70, 1);  // Brown color for the textbox
-        textbox.fillRect(20, 20, 400, 100);  // x, y, width, height
+        const borderColor = 0x3E2A47;
+        const borderThickness = 3;    
+        const fillColor = 0xE5AA70; 
+
+    textbox.lineStyle(borderThickness, borderColor, 1);
+    textbox.strokeRect(20, 20, 400, 100); // x, y, width, height
+
+    // Fill the background of the textbox
+    textbox.fillStyle(fillColor, 1);
+    textbox.fillRect(20 + borderThickness, 20 + borderThickness, 400 - 2 * borderThickness, 100 - 2 * borderThickness);
 
         const textStyle = {
             fontFamily: 'TextFont',
@@ -120,8 +128,13 @@ class GameScene extends Phaser.Scene {
         // Add option buttons
         options.forEach((option, index) => {
             const optionBox = this.add.graphics();
-            optionBox.fillStyle(0xE5AA70, 1);
-            optionBox.fillRect(70, 400 + index * 40, 500, 30); // x, y, width, height
+
+  optionBox.lineStyle(borderThickness, borderColor, 1);  // Border for the option box
+        optionBox.strokeRect(70, 400 + index * 40, 500, 30); // x, y, width, height
+
+        // Fill the option box background
+        optionBox.fillStyle(fillColor, 1);
+        optionBox.fillRect(70 + borderThickness, 400 + index * 40 + borderThickness, 500 - 2 * borderThickness, 30 - 2 * borderThickness);
 
             // Option text (clickable)
             const optionText = this.add.text(80, 405 + index * 40, option.label, {
