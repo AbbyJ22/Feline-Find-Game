@@ -115,7 +115,7 @@ class GameScene extends Phaser.Scene {
 
     // Fill the background of the textbox
     textbox.fillStyle(fillColor, 1);
-    textbox.fillRect(20 + borderThickness, 20 + borderThickness, 400 - 2 * borderThickness, 100 - 2 * borderThickness);
+    textbox.fillRect(20 + borderThickness, 20 + borderThickness, 400 * borderThickness, 100 * borderThickness);
 
         const textStyle = {
             fontFamily: 'TextFont',
