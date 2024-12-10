@@ -132,7 +132,7 @@ showText(text, options) {
         color: '#000000', 
         wordWrap: { width: boxWidth - 20, useAdvancedWrap: true }, // Adjust word wrap to fit inside the box
     };
-    this.add.text(boxX + 10, boxY + 10, text, textStyle); // Add some padding for the text
+    const mainText = this.add.text(boxX + 10, boxY + 10, text, textStyle); // Add some padding for the text
 
     // Store option boxes and texts for removal later
     const optionBoxes = [];
@@ -176,7 +176,7 @@ showText(text, options) {
             // Trigger the option's action
             option.action();
 
-            // Clear both options
+            mainText.destroy();
             optionBoxes.forEach(box => box.clear()); // Clear all option boxes
             optionTexts.forEach(text => text.destroy()); // Destroy all option texts
         });
