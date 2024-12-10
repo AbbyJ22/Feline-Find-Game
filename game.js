@@ -71,7 +71,7 @@ class GameScene extends Phaser.Scene {
     this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
 }
 
-    }
+    
 
     create() {
            WebFont.load({
