@@ -1,12 +1,4 @@
-// Make sure the config object is defined before using it.
-const config = {
-    type: Phaser.AUTO,
-    width: 657,
-    height: 453,
-    parent: 'game-container',
-    scene: [StartMenuScene, GameScene],  // Array of scene classes
-    pixelArt: true,
-};
+
 
 class StartMenuScene extends Phaser.Scene {
     constructor() {
@@ -157,6 +149,17 @@ class GameScene extends Phaser.Scene {
     }
 }
 
-// Now initialize the Phaser game
-const game = new Phaser.Game(config);
+const config = {
+    type: Phaser.AUTO,
+    width: 657,
+    height: 453,
+    parent: 'game-container',
+    scene: [StartMenuScene, GameScene],  // Array of scene classes
+    pixelArt: true,
+};
+
+// Initialize the Phaser game after everything is defined
+window.onload = () => {
+    const game = new Phaser.Game(config);
+};
 
