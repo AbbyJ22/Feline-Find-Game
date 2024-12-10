@@ -123,6 +123,8 @@ showText(text, options) {
     textbox.fillRect(
         boxX + borderThickness,
         boxY + borderThickness,
+         boxWidth - borderThickness, // Adjust width for border
+        boxHeight - borderThickness
     );
 
     // Add text to the textbox
