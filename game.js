@@ -186,4 +186,6 @@ showText(text, options) {
             optionText.destroy(); // Remove the text
         });
     });
-}
+};
+const game = new Phaser.Game(config);
+
