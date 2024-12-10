@@ -1,5 +1,3 @@
-
-
 class StartMenuScene extends Phaser.Scene {
     constructor() {
         super({ key: 'StartMenuScene' });
@@ -174,7 +172,7 @@ class GameScene extends Phaser.Scene {
             });
         });
     }
-}
+
 
 const config = {
     type: Phaser.AUTO,
