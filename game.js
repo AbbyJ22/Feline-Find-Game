@@ -104,26 +104,40 @@ class GameScene extends Phaser.Scene {
     }
 
     showText(text, options) {
-        // Create a textbox background
-        const textbox = this.add.graphics();
-        const borderColor = 0x3E2A47;
-        const borderThickness = 3;    
-        const fillColor = 0xE5AA70; 
+    // Create a textbox background
+    const textbox = this.add.graphics();
+    const borderColor = 0x3E2A47; // Dark border color
+    const borderThickness = 3;    // Thickness of the border
+    const fillColor = 0xE5AA70;   // Fill color
 
+    const boxX = 20;
+    const boxY = 20;
+    const boxWidth = 400;
+    const boxHeight = 100;
+
+    // Draw the border
     textbox.lineStyle(borderThickness, borderColor, 1);
-    textbox.strokeRect(20, 20, 400, 100); // x, y, width, height
+    textbox.strokeRect(boxX, boxY, boxWidth, boxHeight);
 
     // Fill the background of the textbox
     textbox.fillStyle(fillColor, 1);
-    textbox.fillRect(20 + borderThickness, 20 + borderThickness, 400 * borderThickness, 100 * borderThickness);
+    textbox.fillRect(
+        boxX + borderThickness, 
+        boxY + borderThickness, 
+        boxWidth - borderThickness * 2, 
+        boxHeight - borderThickness * 2
+    );
 
-        const textStyle = {
-            fontFamily: 'TextFont',
-            fontSize: '18px',
-            color: '#FFFFFF', // White text
-            wordWrap: { width: 530, useAdvancedWrap: true }, // Wrap text inside the box
-        };
-        this.add.text(70, 290, text, textStyle);
+    // Add text to the textbox
+    const textStyle = {
+        fontFamily: 'TextFont',
+        fontSize: '18px',
+        color: '#FFFFFF', // White text
+        wordWrap: { width: boxWidth - 20, useAdvancedWrap: true }, // Adjust word wrap to fit inside the box
+    };
+    this.add.text(boxX + 10, boxY + 10, text, textStyle); // Add some padding for the text
+}
+
 
         // Add option buttons
         options.forEach((option, index) => {
