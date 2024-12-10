@@ -77,13 +77,13 @@ class GameScene extends Phaser.Scene {
         // Create animations
         this.anims.create({
             key: 'Idle',
-            frames: this.anims.generateFrameNumbers('mcIdle', { start: 0, end: 2 }), 
+            frames: this.anims.generateFrameNumbers('mcIdle', { start: 0, end: 1 }), 
             frameRate: 2, 
             repeat: -1 
         });
         this.anims.create({
             key: 'Walk',
-            frames: this.anims.generateFrameNumbers('mcwalk', { start: 0, end: 4 }), 
+            frames: this.anims.generateFrameNumbers('mcwalk', { start: 0, end: 3 }), 
             frameRate: 4, 
             repeat: -1 
         });
