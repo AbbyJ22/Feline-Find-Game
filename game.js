@@ -189,8 +189,6 @@ showText(text, options) {
 }
 
 
-// Initialize the Phaser game after everything is defined
 window.onload = () => {
-    const game = new Phaser.Game(config);
+    new Phaser.Game(config); // Instantiate Phaser Game
 };
-
