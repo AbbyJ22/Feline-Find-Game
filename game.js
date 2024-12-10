@@ -66,10 +66,20 @@ class GameScene extends Phaser.Scene {
             frameWidth: 32,
             frameHeight: 32
         });
+
+        preload() {
+    this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
+}
+
     }
 
     create() {
-        console.log('Game Scene Created');
+           WebFont.load({
+        custom: {
+            families: ['TextFont'], // Font name as defined in your CSS
+        },
+    });
+
         const bg = this.add.image(0, 0, 'fence').setOrigin(0);
         bg.setDisplaySize(1372, 453);
 
