@@ -123,15 +123,13 @@ showText(text, options) {
     textbox.fillRect(
         boxX + borderThickness,
         boxY + borderThickness,
-        boxWidth - borderThickness * 2,
-        boxHeight - borderThickness * 2
     );
 
     // Add text to the textbox
     const textStyle = {
         fontFamily: 'TextFont',
         fontSize: '18px',
-        color: '#FFFFFF', // White text
+        color: '#000000', 
         wordWrap: { width: boxWidth - 20, useAdvancedWrap: true }, // Adjust word wrap to fit inside the box
     };
     this.add.text(boxX + 10, boxY + 10, text, textStyle); // Add some padding for the text
@@ -155,15 +153,13 @@ showText(text, options) {
         optionBox.fillRect(
             optionX + borderThickness,
             optionY + borderThickness,
-            optionBoxWidth - borderThickness * 2,
-            optionBoxHeight - borderThickness * 2
         );
 
         // Option text (clickable)
         const optionText = this.add.text(optionX + 10, optionY + 5, option.label, {
             fontFamily: 'TextFont',
             fontSize: '16px',
-            color: '#FFFFFF', // White text
+            color: '#000000', 
         }).setInteractive();
 
         // Hover interactions
