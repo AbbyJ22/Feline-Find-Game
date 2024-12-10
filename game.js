@@ -187,8 +187,3 @@ showText(text, options) {
         });
     });
 }
-
-
-window.onload = () => {
-    new Phaser.Game(config); // Instantiate Phaser Game
-};
