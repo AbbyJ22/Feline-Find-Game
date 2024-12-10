@@ -77,8 +77,12 @@ class GameScene extends Phaser.Scene {
             },
         });
 
+        // Initialize background scroll speed
+        this.bgScrollSpeed = 0;
+
+        // Set up the background
         this.bg = this.add.tileSprite(0, 0, config.width, config.height, 'fence').setOrigin(0);
-        bg.setDisplaySize(1372, 453);
+        this.bg.setDisplaySize(1372, 453); // Fix: Access bg via this
 
         // Create animations
         this.anims.create({
@@ -102,14 +106,37 @@ class GameScene extends Phaser.Scene {
 
         // Display text with a delay
         this.time.delayedCall(1000, () => {
-            this.showText("Hello there! You must be new in the neighborhood, right?", [
-                { label: "Yes, just moved in!", action: () => console.log("New...") },
-                { label: "I'm just passing through.", action: () => console.log("Passing...") }
-            ]);
+            const startingDialogue = {
+                text: "Hello there! You must be new in the neighborhood, right?",
+                options: [
+                    { label: "Yes, just moved in!",
+                        next: {
+                            text: "In that case, you should go meet the other cats!",
+                            options: [
+                                { label: "Let's go!", action: () => this.startWalking(), next: null },
+                                { label: "I guess...", action: () => this.startWalking(), next: null }
+                            ]
+                        }
+                    },
+                    {
+                        label: "I'm just passing through.",
+                        next: {
+                            text: "Oh, a traveler? You should meet the other cats!",
+                            options: [
+                                { label: "Let's go!", action: () => this.startWalking(), next: null },
+                                { label: "Sure!", action: () => this.startWalking(), next: null }
+                            ]
+                        }
+                    },
+                ],
+            };
+            this.showText(startingDialogue);
         });
     }
 
-    showText(text, options) {
+    showText(dialogue) {
+        const { text, options } = dialogue;
+
         const textbox = this.add.graphics();
         const borderColor = 0x3E2A47; // Dark border color
         const borderThickness = 3;    // Thickness of the border
@@ -136,7 +163,6 @@ class GameScene extends Phaser.Scene {
         };
         const mainText = this.add.text(boxX + 10, boxY + 10, text, textStyle);
 
-        // Store option boxes and texts for removal later
         const optionBoxes = [];
         const optionTexts = [];
 
@@ -168,11 +194,18 @@ class GameScene extends Phaser.Scene {
             });
 
             optionText.on('pointerdown', () => {
-                option.action();
-
+                // Remove current dialogue elements
                 mainText.destroy();
                 optionBoxes.forEach(box => box.clear());
                 optionTexts.forEach(text => text.destroy());
+
+                if (option.action) {
+                    option.action(); // Trigger the action
+                }
+
+                if (option.next) {
+                    this.showText(option.next); // Show the next dialogue
+                }
             });
 
             optionBoxes.push(optionBox);
@@ -180,7 +213,7 @@ class GameScene extends Phaser.Scene {
         });
     }
 
- startWalking() {
+    startWalking() {
         // Play walking animation
         this.mcIdle.anims.play('Walk');
 
@@ -200,6 +233,7 @@ class GameScene extends Phaser.Scene {
         }
     }
 }
+
 
 const config = {
     type: Phaser.AUTO,
