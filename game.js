@@ -123,8 +123,38 @@ showText(text, options) {
         color: '#FFFFFF', // White text
         wordWrap: { width: 530, useAdvancedWrap: true }, // Wrap text inside the box
     };
-    this.add.text(70, 290, text, textStyle); // x, y for positioning text inside the box
-}
-}
+    this.add.text(70, 290, text, textStyle);
 
+    options.forEach((option, index) => {
+        // Draw option box background
+        const optionBox = this.add.graphics();
+        optionBox.fillStyle(0xE5AA70, 1);
+        optionBox.fillRect(70, 400 + index * 40, 500, 30); // x, y, width, height
+
+        // Add option text (clickable)
+        const optionText = this.add.text(80, 405 + index * 40, option.label, {
+            fontFamily: 'TextFont',
+            fontSize: '16px',
+            color: '#FFFFFF', // White text
+        }).setInteractive(); // Make the option text interactive
+
+        // Event listener for when the pointer hovers over an option
+        optionText.on('pointerover', () => {
+            optionText.setStyle({ color: '#D3D3D3' }); // Change color on hover
+        });
+
+        // Event listener for when the pointer moves out of an option
+        optionText.on('pointerout', () => {
+            optionText.setStyle({ color: '#FFFFFF' }); // Reset color on hover out
+        });
+
+        // Event listener for when an option is clicked
+        optionText.on('pointerdown', () => {
+            option.action();  // Trigger the action for that option
+            optionText.setAlpha(0); // Optionally hide the text after click
+            optionBox.clear(); // Clear the option box (background)
+        });
+    });
+}
+}
 const game = new Phaser.Game(config);
