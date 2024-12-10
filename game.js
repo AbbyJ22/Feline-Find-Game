@@ -1,3 +1,12 @@
+const config = {
+    type: Phaser.AUTO,
+    width: 657,
+    height: 453,
+    parent: 'game-container',
+    scene: [StartMenuScene, GameScene],
+    pixelArt: true,
+};
+
 class StartMenuScene extends Phaser.Scene {
     constructor() {
         super({ key: 'StartMenuScene' });
@@ -70,64 +79,52 @@ class GameScene extends Phaser.Scene {
             frameHeight: 32
         });
     }
+create() {
+    const bg = this.add.image(0, 0, 'fence').setOrigin(0);
+    bg.setDisplaySize(1372, 453);
 
-    create() {
-        const bg = this.add.image(0, 0, 'fence').setOrigin(0);
-        bg.setDisplaySize(1372, 453);
-
-        this.anims.create({
+    // Create animations
+    this.anims.create({
         key: 'Idle',
         frames: this.anims.generateFrameNumbers('mcIdle', { start: 0, end: 2 }), 
         frameRate: 2, 
         repeat: -1 
     });
-         this.anims.create({
+    this.anims.create({
         key: 'Walk',
         frames: this.anims.generateFrameNumbers('mcwalk', { start: 0, end: 4 }), 
         frameRate: 4, 
         repeat: -1 
     });
 
-        this.mcIdle = this.add.sprite(328.5, 350, 'mcIdle'); 
-        this.mcIdle.setScale(4);
-        this.mcIdle.setOrigin(0.5, 0.5);
-        this.mcIdle.anims.play('Idle');
+    // Create main character sprite
+    this.mcIdle = this.add.sprite(328.5, 350, 'mcIdle'); 
+    this.mcIdle.setScale(4);
+    this.mcIdle.setOrigin(0.5, 0.5);
+    this.mcIdle.anims.play('Idle');
 
-          this.time.delayedCall(1000, () => {
-            this.showText("Hello there! You must be new in the neighborhood, right?", [
-                { label: "Yes, just moved in!", action: () => console.log("New...") },
-                { label: "I'm just passing through.", action: () => console.log("Passing...") }
-            ]);
-        });
-    }
-      showText(text, options) {
-        const textbox = this.add.graphics();
-        textbox.fillStyle(0xE5AA70, 1); // Brown color for the textbox
-        textbox.fillRect(50, 280, 557, 100); // x, y, width, height
-
-
-   const textStyle = {
-            fontFamily: 'TextFont',
-            fontSize: '18px',
-            color: '#FFFFFF', // White text
-            wordWrap: { width: 530, useAdvancedWrap: true }, // Wrap text inside the box
-        };
-        this.add.text(70, 290, text, textStyle); // x, y for positioning text inside the box
-
-
-
-
+    // Display text with a delay
+    this.time.delayedCall(1000, () => {
+        this.showText("Hello there! You must be new in the neighborhood, right?", [
+            { label: "Yes, just moved in!", action: () => console.log("New...") },
+            { label: "I'm just passing through.", action: () => console.log("Passing...") }
+        ]);
+    });
 }
 
+showText(text, options) {
+    const textbox = this.add.graphics();
+    textbox.fillStyle(0xE5AA70, 1); // Brown color for the textbox
+    textbox.fillRect(50, 280, 557, 100); // x, y, width, height
 
-const config = {
-    type: Phaser.AUTO,
-    width: 657,
-    height: 453,
-    parent: 'game-container',
-    scene: [StartMenuScene, GameScene],
-    pixelArt: true,
-};
-
+    const textStyle = {
+        fontFamily: 'TextFont',
+        fontSize: '18px',
+        color: '#FFFFFF', // White text
+        wordWrap: { width: 530, useAdvancedWrap: true }, // Wrap text inside the box
+    };
+    this.add.text(70, 290, text, textStyle); // x, y for positioning text inside the box
+}
+}
 
 const game = new Phaser.Game(config);
