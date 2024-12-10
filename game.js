@@ -104,75 +104,63 @@ class GameScene extends Phaser.Scene {
     }
 
     showText(text, options) {
-    const borderColor = 0x3E2A47; // Dark brown for border
-    const borderThickness = 3;    // Thickness of the border
-    const fillColor = 0xE5AA70;   // Light brown for background
-    const textboxWidth = 400;
-    const textboxHeight = 100;
+        // Create a textbox background
+        const textbox = this.add.graphics();
+        const borderColor = 0x3E2A47;
+        const borderThickness = 3;    
+        const fillColor = 0xE5AA70; 
 
-    // Create the textbox background with border
-    const textbox = this.add.graphics();
-    textbox.lineStyle(borderThickness, borderColor, 1); // Border settings
-    textbox.strokeRect(20, 20, textboxWidth, textboxHeight); // Border dimensions
-    textbox.fillStyle(fillColor, 1); // Fill settings
-    textbox.fillRect(
-        20 + borderThickness, 
-        20 + borderThickness, 
-        textboxWidth - borderThickness * 2, 
-        textboxHeight - borderThickness * 2
-    ); // Adjusted fill dimensions
+    textbox.lineStyle(borderThickness, borderColor, 1);
+    textbox.strokeRect(20, 20, 400, 100); // x, y, width, height
 
-    // Add text to the textbox
-    const textStyle = {
-        fontFamily: 'TextFont',
-        fontSize: '18px',
-        color: '#FFFFFF', // White text
-        wordWrap: { width: textboxWidth - 40, useAdvancedWrap: true }, // Adjust word wrap to fit inside the box
-    };
-    this.add.text(30, 30, text, textStyle); // Text position inside the box
+    // Fill the background of the textbox
+    textbox.fillStyle(fillColor, 1);
+    textbox.fillRect(20 + borderThickness, 20 + borderThickness, 400 * borderThickness, 100 * borderThickness);
 
-    // Add option buttons
-    options.forEach((option, index) => {
-        const optionBoxWidth = 400;
-        const optionBoxHeight = 30;
-        const optionX = 20;
-        const optionY = 140 + index * (optionBoxHeight + 10);
-
-        // Create option box with border
-        const optionBox = this.add.graphics();
-        optionBox.lineStyle(borderThickness, borderColor, 1);
-        optionBox.strokeRect(optionX, optionY, optionBoxWidth, optionBoxHeight);
-        optionBox.fillStyle(fillColor, 1);
-        optionBox.fillRect(
-            optionX + borderThickness, 
-            optionY + borderThickness, 
-            optionBoxWidth - borderThickness * 2, 
-            optionBoxHeight - borderThickness * 2
-        );
-
-        // Add option text
-        const optionText = this.add.text(optionX + 10, optionY + 5, option.label, {
+        const textStyle = {
             fontFamily: 'TextFont',
-            fontSize: '16px',
+            fontSize: '18px',
             color: '#FFFFFF', // White text
-        }).setInteractive();
+            wordWrap: { width: 530, useAdvancedWrap: true }, // Wrap text inside the box
+        };
+        this.add.text(70, 290, text, textStyle);
 
-        // Hover interactions
-        optionText.on('pointerover', () => {
-            optionText.setStyle({ color: '#D3D3D3' }); // Change text color on hover
-        });
+        // Add option buttons
+        options.forEach((option, index) => {
+            const optionBox = this.add.graphics();
 
-        optionText.on('pointerout', () => {
-            optionText.setStyle({ color: '#FFFFFF' }); // Reset text color on hover out
-        });
+  optionBox.lineStyle(borderThickness, borderColor, 1);  // Border for the option box
+        optionBox.strokeRect(20, 20 + index * 40, 400, 50); // x, y, width, height
 
-        // Click interaction
-        optionText.on('pointerdown', () => {
-            option.action();
+        // Fill the option box background
+        optionBox.fillStyle(fillColor, 1);
+        optionBox.fillRect(20 + borderThickness, 20 + index * 40 + borderThickness, 400 * borderThickness, 50 * borderThickness);
+
+            // Option text (clickable)
+            const optionText = this.add.text(80, 405 + index * 40, option.label, {
+                fontFamily: 'TextFont',
+                fontSize: '16px',
+                color: '#FFFFFF', // White text
+            }).setInteractive();
+
+            // Hover interactions
+            optionText.on('pointerover', () => {
+                optionText.setStyle({ color: '#D3D3D3' }); // Change color on hover
+            });
+
+            optionText.on('pointerout', () => {
+                optionText.setStyle({ color: '#FFFFFF' }); // Reset color on hover out
+            });
+
+            // Option click interaction
+            optionText.on('pointerdown', () => {
+                option.action();
+                optionText.setAlpha(0); // Optionally hide the text after click
+                optionBox.clear(); // Clear the option box (background)
+            });
         });
-    });
+    }
 }
-
 
 const config = {
     type: Phaser.AUTO,
