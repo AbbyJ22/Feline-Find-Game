@@ -188,6 +188,10 @@ const config = {
     parent: 'game-container',
     scene: [StartMenuScene, GameScene],
     pixelArt: true,
+     render: {
+        antialias: false,
+        pixelArt: true,
+    },
 };
 
 const game = new Phaser.Game(config);
