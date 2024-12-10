@@ -82,7 +82,6 @@ class GameScene extends Phaser.Scene {
 
         // Set up the background
         this.bg = this.add.tileSprite(0, 0, config.width, config.height, 'fence').setOrigin(0);
-        this.bg.setDisplaySize(1372, 453); // Fix: Access bg via this
 
         // Create animations
         this.anims.create({
