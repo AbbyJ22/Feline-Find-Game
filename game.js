@@ -124,18 +124,20 @@ showText(text, options) {
     const boxWidth = 400;
     const boxHeight = 100;
 
+     textbox.fillStyle(fillColor, 1);
+    textbox.fillRect(
+        boxX,
+        boxY,
+         boxWidth,
+        boxHeight
+    );
+
     // Draw the border
     textbox.lineStyle(borderThickness, borderColor, 1);
     textbox.strokeRect(boxX, boxY, boxWidth, boxHeight);
 
     // Fill the background of the textbox
-    textbox.fillStyle(fillColor, 1);
-    textbox.fillRect(
-        boxX + borderThickness,
-        boxY + borderThickness,
-         boxWidth - borderThickness, // Adjust width for border
-        boxHeight - borderThickness
-    );
+   
 
     // Add text to the textbox
     const textStyle = {
@@ -144,11 +146,18 @@ showText(text, options) {
         color: '#000000', 
         wordWrap: { width: boxWidth - 20, useAdvancedWrap: true }, // Adjust word wrap to fit inside the box
     };
+
+
+
     const mainText = this.add.text(boxX + 10, boxY + 10, text, textStyle); // Add some padding for the text
+
+
 
     // Store option boxes and texts for removal later
     const optionBoxes = [];
     const optionTexts = [];
+
+
 
     // Add option buttons
     options.forEach((option, index) => {
@@ -157,15 +166,20 @@ showText(text, options) {
         const optionX = 20;
         const optionY = 140 + index * (optionBoxHeight + 10);
 
+
+
         // Create option box with border
         const optionBox = this.add.graphics();
+   optionBox.fillStyle(fillColor, 1);
+        optionBox.fillRect(
+            optionX,
+            optionY,
+            optionBoxWidth,
+            optionBoxHeight,
+        );
         optionBox.lineStyle(borderThickness, borderColor, 1);
         optionBox.strokeRect(optionX, optionY, optionBoxWidth, optionBoxHeight);
-        optionBox.fillStyle(fillColor, 1);
-        optionBox.fillRect(
-            optionX + borderThickness,
-            optionY + borderThickness,
-        );
+     
 
         // Option text (clickable)
         const optionText = this.add.text(optionX + 10, optionY + 5, option.label, {
