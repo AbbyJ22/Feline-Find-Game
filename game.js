@@ -1,11 +1,3 @@
-const config = {
-    type: Phaser.AUTO,
-    width: 657,
-    height: 453,
-    parent: 'game-container',
-    scene: [StartMenuScene, GameScene],  // Array of scene classes
-    pixelArt: true,
-};
 
 class StartMenuScene extends Phaser.Scene {
     constructor() {
@@ -188,5 +180,15 @@ showText(text, options) {
     });
 }
 }
+
+const config = {
+    type: Phaser.AUTO,
+    width: 657,
+    height: 453,
+    parent: 'game-container',
+    scene: [StartMenuScene, GameScene],  // Array of scene classes
+    pixelArt: true,
+};
+
 const game = new Phaser.Game(config);
 
