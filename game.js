@@ -88,7 +88,7 @@ class GameScene extends Phaser.Scene {
         repeat: -1 
     });
 
-        this.mcIdle = this.add.sprite(300, 100, 'mcIdle'); 
+        this.mcIdle = this.add.sprite(328.5, 300, 'mcIdle'); 
         this.mcIdle.setScale(4);
         this.mcIdle.setOrigin(0.5, 0.5);
 
