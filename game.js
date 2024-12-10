@@ -66,6 +66,15 @@ class GameScene extends Phaser.Scene {
             frameHeight: 32
         });
 
+        this.load.spritesheet('oneIdle', 'assets/sprites/oneIdle.png', {
+            frameWidth: 32,
+            frameHeight: 32
+        });
+
+
+
+
+
         // Fix: WebFont loader is added correctly
         this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
     }
@@ -94,6 +103,12 @@ class GameScene extends Phaser.Scene {
             key: 'Walk',
             frames: this.anims.generateFrameNumbers('mcwalk', { start: 0, end: 3 }),
             frameRate: 4,
+            repeat: -1
+        });
+         this.anims.create({
+            key: 'One',
+            frames: this.anims.generateFrameNumbers('oneIdle', { start: 0, end: 1 }),
+            frameRate: 2,
             repeat: -1
         });
 
