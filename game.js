@@ -104,6 +104,19 @@ class GameScene extends Phaser.Scene {
         const textbox = this.add.graphics();
         textbox.fillStyle(0xE5AA70, 1); // Brown color for the textbox
         textbox.fillRect(50, 280, 557, 100); // x, y, width, height
+
+
+   const textStyle = {
+            fontFamily: 'TextFont',
+            fontSize: '18px',
+            color: '#FFFFFF', // White text
+            wordWrap: { width: 530, useAdvancedWrap: true }, // Wrap text inside the box
+        };
+        this.add.text(70, 290, text, textStyle); // x, y for positioning text inside the box
+
+
+
+
 }
 
 

@@ -5,8 +5,13 @@ background-color: lightblue;
    font-family: "CustomFont";
   src: url('assets/fonts/gamefont-webfont.woff2') format('woff2'),
      url('assets/fonts/gamefont-webfont.woff') format('woff');
-
 }
+@font-face {
+    font-family: 'TextFont';
+    src: url('assets/fonts/dogicapixel-webfont.woff2') format('woff2'),
+         url('assets/fonts/dogicapixel-webfont.woff') format('woff');
+}
+
 canvas {
     display: block;
 }
