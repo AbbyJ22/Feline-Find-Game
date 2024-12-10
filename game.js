@@ -68,7 +68,7 @@ class GameScene extends Phaser.Scene {
     }
 
     create() {
-        // Background
+        console.log('Game Scene Created');
         const bg = this.add.image(0, 0, 'fence').setOrigin(0);
         bg.setDisplaySize(1372, 453);
 
