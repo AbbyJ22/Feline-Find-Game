@@ -77,7 +77,7 @@ class GameScene extends Phaser.Scene {
             },
         });
 
-        const bg = this.add.image(0, 0, 'fence').setOrigin(0);
+        this.bg = this.add.tileSprite(0, 0, config.width, config.height, 'fence').setOrigin(0);
         bg.setDisplaySize(1372, 453);
 
         // Create animations
@@ -178,6 +178,26 @@ class GameScene extends Phaser.Scene {
             optionBoxes.push(optionBox);
             optionTexts.push(optionText);
         });
+    }
+
+ startWalking() {
+        // Play walking animation
+        this.mcIdle.anims.play('Walk');
+
+        // Scroll the background
+        this.bgScrollSpeed = 2;
+
+        // Stop the animation and scrolling after 3 seconds
+        this.time.delayedCall(3000, () => {
+            this.mcIdle.anims.play('Idle');
+            this.bgScrollSpeed = 0;
+        });
+    }
+
+    update() {
+        if (this.bgScrollSpeed) {
+            this.bg.tilePositionX += this.bgScrollSpeed;
+        }
     }
 }
 
