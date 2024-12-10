@@ -91,10 +91,19 @@ class GameScene extends Phaser.Scene {
         this.mcIdle = this.add.sprite(328.5, 350, 'mcIdle'); 
         this.mcIdle.setScale(4);
         this.mcIdle.setOrigin(0.5, 0.5);
-
-
         this.mcIdle.anims.play('Idle');
+
+          this.time.delayedCall(1000, () => {
+            this.showText("Hello there! You must be new in the neighborhood, right?", [
+                { label: "Yes, just moved in!", action: () => console.log("New...") },
+                { label: "I'm just passing through.", action: () => console.log("Passing...") }
+            ]);
+        });
     }
+      showText(text, options) {
+        const textbox = this.add.graphics();
+        textbox.fillStyle(0xE5AA70, 1); // Brown color for the textbox
+        textbox.fillRect(50, 280, 557, 100); // x, y, width, height
 }
 
 
