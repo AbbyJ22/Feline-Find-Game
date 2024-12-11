@@ -65,6 +65,15 @@ class GameScene extends Phaser.Scene {
 
    addItemToInventory(itemName) {
         this.inventory.push(itemName); // Add the item to the inventory
+        
+  this.score++;
+
+    // Update the score display
+    this.scoreText.setText(`Items: ${this.score}`);
+
+
+
+
         const message = `You obtained: ${itemName}`;
 
           const text = this.add.text(
@@ -139,6 +148,12 @@ class GameScene extends Phaser.Scene {
                 families: ['TextFont'], // Font name as defined in your CSS
             },
         });
+
+         this.score = 0;
+
+    // Display the score on the screen
+    this.scoreText = this.add.text(16, 16, 'Items: 0', { font: '15px TextFont', fill: '#ffffff' });
+}
 
           this.shuffleCats();
 
