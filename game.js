@@ -560,7 +560,12 @@ showText(dialogue) {
         });
     }
 
-   startWalking() {
+ startWalking() {
+    // If there's an existing cat sprite, destroy it before starting the walk
+    if (this.catSprite) {
+        this.catSprite.destroy();
+    }
+
     // Play walking animation
     this.mcIdle.anims.play('Walk');
 
