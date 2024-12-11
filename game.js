@@ -185,17 +185,19 @@ class GameScene extends Phaser.Scene {
 
     create() {
         WebFont.load({
-            custom: {
-                families: ['TextFont'], // Font name as defined in your CSS
-            },
-        });
+        custom: {
+            families: ['TextFont'], // Font name as defined in your CSS
+        },
+        active: () => {
+            const savedScore = parseInt(getCookie('score')) || 0;
+            this.score = savedScore;
 
-           const savedScore = parseInt(getCookie('score')) || 0;
-    this.score = savedScore;
-
-    // Display the score on the screen
-     this.scoreText = this.add.text(16, 16, `Items: ${this.score}`, { font: '18px TextFont', fill: '#000000' });
-
+            // Display the score on the screen after the font is loaded
+            this.scoreText = this.add.text(16, 16, `Items: ${this.score}`, { font: '18px TextFont', fill: '#000000' });
+            this.scoreText.setDepth(10);
+            this.scoreText.setScale(1);
+        }
+    });
 
           this.shuffleCats();
 
