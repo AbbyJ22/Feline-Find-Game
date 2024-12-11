@@ -425,9 +425,6 @@ this.cats = [
   const randomCatIndex = Phaser.Math.Between(0, this.cats.length - 1);
     const selectedCat = this.cats[randomCatIndex];
 
-    // Start the dialogue for the selected random cat
-    this.showText(selectedCat.dialogue);
-
 
     for (let i = this.cats.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
