@@ -89,41 +89,61 @@ class GameScene extends Phaser.Scene {
 
 
    addItemToInventory(itemName) {
-        this.inventory.push(itemName); // Add the item to the inventory
+    this.inventory.push(itemName); // Add the item to the inventory
 
-  this.score++;
-
+    this.score++;
     // Update the score display
     this.scoreText.setText(`Items: ${this.score}`);
-  setCookie('score', this.score, 7);
+    setCookie('score', this.score, 7);
 
+    // Function to get the image key based on the item name
+    function getItemImageKey(itemName) {
+        switch(itemName) {
+            case "Yarn":
+                return 'yarnImage';
+            case "Fish":
+                return 'fishImage';
+            case "Branch":
+                return 'branchImage';
+            case "Catnip":
+                return 'catnipImage';
+            default:
+                return null; // In case the item isn't recognized
+        }
+    }
 
+    // Get the image key for the obtained item
+    let itemImageKey = getItemImageKey(itemName);
 
+    if (itemImageKey) {
         const message = `You obtained: ${itemName}`;
 
-          const text = this.add.text(
-        this.scale.width / 2, 
-        this.scale.height / 2 + 50, // Offset slightly for image display
-        message, 
-        { font: '15px TextFont', fill: '#ffffff', backgroundColor: '#000000', padding: { x: 10, y: 5 } }
-    ).setOrigin(0.5);
-           const image = this.add.image(
-        this.scale.width / 2, 
-        this.scale.height / 2 - 50, // Offset image above the text
-        itemImageKey
-    ).setScale(0.5); // Adjust scale if needed
-           this.time.delayedCall(2000, () => {
-        this.tweens.add({
-            targets: [text, image],
-            alpha: 0,
-            duration: 500,
-            onComplete: () => {
-                text.destroy(); // Remove the text
-                image.destroy(); // Remove the image
-            }
+        const text = this.add.text(
+            this.scale.width / 2, 
+            this.scale.height / 2 + 50, // Offset slightly for image display
+            message, 
+            { font: '15px TextFont', fill: '#ffffff', backgroundColor: '#000000', padding: { x: 10, y: 5 } }
+        ).setOrigin(0.5);
+
+        const image = this.add.image(
+            this.scale.width / 2, 
+            this.scale.height / 2 - 50, // Offset image above the text
+            itemImageKey // Use the dynamically set image key here
+        ).setScale(0.5); // Adjust scale if needed
+
+        this.time.delayedCall(2000, () => {
+            this.tweens.add({
+                targets: [text, image],
+                alpha: 0,
+                duration: 500,
+                onComplete: () => {
+                    text.destroy(); // Remove the text
+                    image.destroy(); // Remove the image
+                }
+            });
         });
-    });
-} 
+    }
+}
 
     preload() {
         this.load.image('fence', 'assets/fence.png');
