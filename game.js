@@ -193,7 +193,7 @@ class GameScene extends Phaser.Scene {
             this.score = savedScore;
 
             // Display the score on the screen after the font is loaded
-            this.scoreText = this.add.text(16, 16, `Items: ${this.score}`, { font: '18px TextFont', fill: '#000000' });
+            this.scoreText = this.add.text(116, 116, `Items: ${this.score}`, { font: '18px TextFont', fill: '#000000' });
             this.scoreText.setDepth(10);
             this.scoreText.setScale(1);
         }
