@@ -560,8 +560,8 @@ showText(dialogue) {
         });
     }
 
- startWalking() {
-    // If there's an existing cat sprite, destroy it before starting the walk
+startWalking() {
+    // If there's an existing cat sprite, destroy it when starting the walk again
     if (this.catSprite) {
         this.catSprite.destroy();
     }
@@ -572,7 +572,7 @@ showText(dialogue) {
     // Scroll the background
     this.bgScrollSpeed = 2;
 
-    // Stop the animation and scrolling after 3 seconds
+    // Stop the animation and scrolling after 3 seconds (you can adjust this timing)
     this.time.delayedCall(3000, () => {
         this.mcIdle.anims.play('Idle');
         this.bgScrollSpeed = 0;
@@ -592,24 +592,17 @@ showText(dialogue) {
             // Store the reference to the catSprite
             this.catSprite = catSprite;
 
-            // Remove the cat after the dialogue
-            this.time.delayedCall(5000, () => {
-                if (this.catSprite) {
-                    this.catSprite.destroy();
-                }
+            // Show the cat's dialogue
+            this.time.delayedCall(500, () => {
+                const currentCat = this.cats[this.currentCatIndex];
+                this.showText(currentCat.dialogue);
             });
-
         } else {
             console.error("Selected cat is missing spriteKey or animationKey.");
         }
-
-        // Show the cat's dialogue
-        this.time.delayedCall(500, () => {
-            const currentCat = this.cats[this.currentCatIndex];
-            this.showText(currentCat.dialogue);
-        });
     });
 }
+
 
 
 update() {
