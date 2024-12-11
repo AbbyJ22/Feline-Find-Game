@@ -54,7 +54,7 @@ class StartMenuScene extends Phaser.Scene {
         .setOrigin(0.5)
         .setShadow(5, 5, '#000000', 0, true, true);
 
-            const newGameButton = this.add.text(config.width / 2, config.height / 2 - 50, 'New Game', {
+            const newGameButton = this.add.text(config.width / 2, config.height / 2 + 50, 'New Game', {
             fontFamily: 'CustomFont',
             fontSize: '30px',
             fill: '#00FFFF',
