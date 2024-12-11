@@ -563,7 +563,7 @@ showText(dialogue) {
         });
     }
 
-    startWalking() {
+   startWalking() {
     // Play walking animation
     this.mcIdle.anims.play('Walk');
 
@@ -575,22 +575,36 @@ showText(dialogue) {
         this.mcIdle.anims.play('Idle');
         this.bgScrollSpeed = 0;
 
-       const randomCat = this.cats[this.currentCatIndex];
+        // Create the random cat only if it's not already showing
+        const randomCat = this.cats[this.currentCatIndex];
 
-    if (randomCat && randomCat.spriteKey && randomCat.animationKey) {
-        // Create the sprite using the random cat's spriteKey
-        const catSprite = this.add.sprite(360, 355, randomCat.spriteKey);
-        catSprite.setScale(4);
-        catSprite.setOrigin(0.5, 0.5);
-        
-        // Play the animation using the animationKey of the selected cat
-        catSprite.anims.play(randomCat.animationKey);
-    } else {
-        console.error("Selected cat is missing spriteKey or animationKey.");
-    }
-     this.time.delayedCall(500, () => {
-          const currentCat = this.cats[this.currentCatIndex];
-this.showText(currentCat.dialogue);
+        if (randomCat && randomCat.spriteKey && randomCat.animationKey) {
+            // Create the sprite using the random cat's spriteKey
+            const catSprite = this.add.sprite(360, 355, randomCat.spriteKey);
+            catSprite.setScale(4);
+            catSprite.setOrigin(0.5, 0.5);
+
+            // Play the animation using the animationKey of the selected cat
+            catSprite.anims.play(randomCat.animationKey);
+
+            // Store the reference to the catSprite
+            this.catSprite = catSprite;
+
+            // Remove the cat after the dialogue
+            this.time.delayedCall(5000, () => {
+                if (this.catSprite) {
+                    this.catSprite.destroy();
+                }
+            });
+
+        } else {
+            console.error("Selected cat is missing spriteKey or animationKey.");
+        }
+
+        // Show the cat's dialogue
+        this.time.delayedCall(500, () => {
+            const currentCat = this.cats[this.currentCatIndex];
+            this.showText(currentCat.dialogue);
         });
     });
 }
