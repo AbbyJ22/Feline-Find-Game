@@ -129,7 +129,7 @@ class GameScene extends Phaser.Scene {
             this.scale.width / 2, 
             this.scale.height / 2 - 20, // Offset image above the text
             itemImageKey // Use the dynamically set image key here
-        ).setScale(5); // Adjust scale if needed
+        ).setScale(3); // Adjust scale if needed
 
         this.time.delayedCall(1000, () => {
             this.tweens.add({
