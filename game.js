@@ -420,10 +420,6 @@ this.cats = [
 ];
 
 
-
-
-
-
     for (let i = this.cats.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [this.cats[i], this.cats[j]] = [this.cats[j], this.cats[i]]; // Swap elements
@@ -574,11 +570,11 @@ showText(dialogue) {
         if (this.cats.length > 0) {
             const randomCat = Phaser.Utils.Array.GetRandom(this.cats);
 
-              if (randomCat) {
-                randomCat.anims.play('animationKey'); // Use the cat's specific animation
+            if (randomCat) {
+                randomCat.anims.play(randomCat.animationKey); // Use the cat's specific animation
             }
-            this.showText(randomCat.dialogue);
 
+            this.showText(randomCat.dialogue);
 
             // Remove the selected cat from the array
             Phaser.Utils.Array.Remove(this.cats, randomCat);
@@ -588,6 +584,7 @@ showText(dialogue) {
         }
     });
 }
+
 
 update() {
     if (this.bgScrollSpeed) {
