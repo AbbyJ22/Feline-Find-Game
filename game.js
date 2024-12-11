@@ -424,9 +424,9 @@ shuffleCats() {
                                     }
                                 },
                                 { 
-                                    label: "Oh, okay. If you change your mind, come find me!", 
+                                    label: "No thanks", 
                                     next: {
-                                        text: "Okay, I'll be here!",
+                                        text: "Okay, I'll be here if you change your mind.!",
                                         options: [
                                             { label: "Okay.", action: () => this.startWalking(), next: null },
                                             { label: "I don't think I will, but okay.", action: () => this.startWalking(), next: null }
