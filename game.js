@@ -585,6 +585,9 @@ showText(dialogue) {
     } else {
         console.error("Selected cat is missing spriteKey or animationKey.");
     }
+     this.time.delayedCall(500, () => {
+            this.showText(currentCat.dialogue);
+        });
     });
 }
 
