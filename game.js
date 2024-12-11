@@ -60,7 +60,6 @@ class GameScene extends Phaser.Scene {
         super({ key: 'GameScene' });
         // You can also initialize any specific logic here if needed
     }
-}
 
 
     preload() {
@@ -427,7 +426,7 @@ this.cats = [
     }
 ];
 
-  this.cats = Phaser.Utils.Array.Shuffle(this.cats);
+
 
 
     for (let i = this.cats.length - 1; i > 0; i--) {
