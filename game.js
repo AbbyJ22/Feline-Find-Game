@@ -577,6 +577,9 @@ startWalking() {
         this.mcIdle.anims.play('Idle');
         this.bgScrollSpeed = 0;
 
+  const randomCatIndex = Phaser.Math.Between(0, this.cats.length - 1);
+        const randomCat = this.cats[randomCatIndex];
+
         // Create the random cat only if it's not already showing
         const randomCat = this.cats[this.currentCatIndex];
 
