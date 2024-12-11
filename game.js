@@ -724,7 +724,6 @@ class GameOverScene extends Phaser.Scene {
         super({ key: 'GameOverScene' });
     }
 
-
     preload() {
         this.load.image('mainbg', 'assets/mainbg.png');
     }
@@ -742,8 +741,18 @@ class GameOverScene extends Phaser.Scene {
         .setOrigin(0.5)
         .setShadow(5, 5, '#000000', 0, true, true);
 
+        // Display the player's score
+        const savedScore = parseInt(getCookie('score')) || 0; // Retrieve the score from the cookie (or scene data)
+        this.add.text(config.width / 2, config.height / 2 + 50, `Your Score: ${savedScore}`, {
+            fontFamily: 'CustomFont',
+            fontSize: '30px',
+            fill: '#ffffff',
+        })
+        .setOrigin(0.5)
+        .setShadow(2, 2, '#000000', 0, true, true);
+
         // Play button
-        const restartButton = this.add.text(config.width / 2, config.height / 2, 'Main Menu', {
+        const restartButton = this.add.text(config.width / 2, config.height / 2 + 100, 'Main Menu', {
             fontFamily: 'CustomFont',
             fontSize: '30px',
             fill: '#00FFFF',
@@ -755,11 +764,11 @@ class GameOverScene extends Phaser.Scene {
 
         // Play button interactions
         restartButton.on('pointerover', () => {
-            playButton.setScale(1.2);
+            restartButton.setScale(1.2);
         });
 
         restartButton.on('pointerout', () => {
-            playButton.setScale(1);
+            restartButton.setScale(1);
         });
 
         restartButton.on('pointerdown', () => {
@@ -771,6 +780,7 @@ class GameOverScene extends Phaser.Scene {
         this.bg.tilePositionX += 1; // Moving the background
     }
 }
+
 
 
 
