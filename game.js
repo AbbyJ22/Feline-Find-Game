@@ -1,3 +1,34 @@
+function setCookie(name, value, days) {
+    const date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    const expires = "expires=" + date.toUTCString();
+    document.cookie = name + "=" + value + ";" + expires + ";path=/";
+}
+
+function getCookie(name) {
+    const nameEQ = name + "=";
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+        let c = cookies[i];
+        while (c.charAt(0) === ' ') c = c.substring(1);
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+
+function deleteCookie(name) {
+    document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+}
+
+
+
+
+
+
+
+
+
+
 class StartMenuScene extends Phaser.Scene {
     constructor() {
         super({ key: 'StartMenuScene' });
@@ -65,12 +96,12 @@ class GameScene extends Phaser.Scene {
 
    addItemToInventory(itemName) {
         this.inventory.push(itemName); // Add the item to the inventory
-        
+
   this.score++;
 
     // Update the score display
     this.scoreText.setText(`Items: ${this.score}`);
-
+ setCookie('score', this.score, 7); // Save the score for 7 days
 
 
 
@@ -98,7 +129,7 @@ class GameScene extends Phaser.Scene {
             }
         });
     });
-} 
+ 
 
 
 
@@ -148,8 +179,8 @@ class GameScene extends Phaser.Scene {
                 families: ['TextFont'], // Font name as defined in your CSS
             },
         });
-
-         this.score = 0;
+ const savedScore = parseInt(getCookie('score')) || 0;
+         this.score = savedScore;
 
     // Display the score on the screen
     this.scoreText = this.add.text(16, 16, 'Items: 0', { font: '15px TextFont', fill: '#ffffff' });
