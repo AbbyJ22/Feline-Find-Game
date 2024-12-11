@@ -752,6 +752,25 @@ startWalking() {
         }
     });
 }
+
+ resetGame() {
+        // Reset the variables that track progress
+        this.score = 0;
+        this.currentLevel = 1; // Example: reset to level 1
+        // Add other reset logic (e.g., clear stored data)
+        deleteCookie('score'); // Optionally delete the score cookie for new games
+    }
+
+    loadProgress() {
+        // Load score and progress (if any) from cookies
+        const savedScore = getCookie('score');
+        this.score = savedScore ? parseInt(savedScore, 10) : 0;
+
+        // Load other progress data
+        this.currentLevel = 1; // Example: adjust based on saved data
+    }
+
+
 update() {
     if (this.bgScrollSpeed) {
         this.bg.tilePositionX += this.bgScrollSpeed;
