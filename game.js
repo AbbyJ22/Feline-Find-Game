@@ -55,11 +55,44 @@ class GameScene extends Phaser.Scene {
     cats = []; // Initialize an empty array to store cats
     currentCatIndex = 0;
     shownCats = [];
+    inventory = [];
 
     constructor() {
         super({ key: 'GameScene' });
         // You can also initialize any specific logic here if needed
     }
+
+
+   addItemToInventory(itemName) {
+        this.inventory.push(itemName); // Add the item to the inventory
+        const message = `You obtained: ${itemName}`;
+
+          const text = this.add.text(
+        this.scale.width / 2, 
+        this.scale.height / 2 + 50, // Offset slightly for image display
+        message, 
+        { font: '24px Arial', fill: '#ffffff', backgroundColor: '#000000', padding: { x: 10, y: 5 } }
+    ).setOrigin(0.5);
+           const image = this.add.image(
+        this.scale.width / 2, 
+        this.scale.height / 2 - 50, // Offset image above the text
+        itemImageKey
+    ).setScale(0.5); // Adjust scale if needed
+           this.time.delayedCall(2000, () => {
+        this.tweens.add({
+            targets: [text, image],
+            alpha: 0,
+            duration: 500,
+            onComplete: () => {
+                text.destroy(); // Remove the text
+                image.destroy(); // Remove the image
+            }
+        });
+    });
+} 
+
+
+
 
 
     preload() {
@@ -89,6 +122,12 @@ class GameScene extends Phaser.Scene {
             frameWidth: 32,
             frameHeight: 32
         });
+
+            this.load.image('yarnImage', 'assets/sprites/yarn.png');
+            this.load.image('fishImage', 'assets/sprites/fish.png');
+            this.load.image('branchImage', 'assets/sprites/branch.png');
+            this.load.image('catnipImage', 'assets/sprites/catnip.png');
+
 
         // Fix: WebFont loader is added correctly
         this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
@@ -208,8 +247,8 @@ shuffleCats() {
                             next: {
                                 text: "Me too! I'll help you if you ever need it.",
                                 options: [
-                                    { label: "Thank you!", action: () => this.startWalking(), next: null },
-                                    { label: "Okay!", action: () => this.startWalking(), next: null }
+                                    { label: "Thank you!", action: () => { this.addItemToInventory('Branch', 'branchImage'); this.startWalking(); }, next: null },
+                                    { label: "I don't need help.", action: () => this.startWalking(), next: null }
                                 ]
                             }
                         },
@@ -218,7 +257,7 @@ shuffleCats() {
                             next: {
                                 text: "Wow, impressive! Maybe you can teach me someday.",
                                 options: [
-                                    { label: "Sure!", action: () => this.startWalking(), next: null },
+                                    { label: "Sure!", action: () => { this.addItemToInventory('Branch', 'branchImage'); this.startWalking(); }, next: null },
                                     { label: "Maybe later.", action: () => this.startWalking(), next: null }
                                 ]
                             }
@@ -267,7 +306,7 @@ shuffleCats() {
                                     next: {
                                         text: "Hey, why don't you have this one I caught earlier?",
                                         options: [
-                                            { label: "Thank You!", action: () => this.startWalking(), next: null },
+                                            { label: "Thank You!", action: () => { this.addItemToInventory('Fish', 'fishImage'); this.startWalking(); }, next: null },
                                             { label: "I'll catch my own.", action: () => this.startWalking(), next: null }
                                         ]
                                     }
@@ -285,7 +324,7 @@ shuffleCats() {
                                     next: { 
                                         text: "Why not take this one for the road?", 
                                         options: [
-                                            { label: "Thanks!", action: () => this.startWalking(), next: null },
+                                            { label: "Thanks!", action: () => { this.addItemToInventory('Fish', 'fishImage'); this.startWalking(); }, next: null },
                                             { label: "No thanks.", action: () => this.startWalking(), next: null }
                                         ]
                                     }
@@ -323,7 +362,7 @@ shuffleCats() {
                                     next: {
                                         text: "Do you want some? I've got extra.",
                                         options: [ 
-                                            { label: "Really? Thanks!", action: () => this.startWalking(), next: null },
+                                            { label: "Really? Thanks!", action: () => { this.addItemToInventory('Catnip', 'catnipImage'); this.startWalking(); }, next: null },
                                             { label: "No thanks actually.", action: () => this.startWalking(), next: null }
                                         ]
                                     }
@@ -351,7 +390,7 @@ shuffleCats() {
                                     next: { 
                                         text: "Here's some extra of mine!", 
                                         options: [ 
-                                            { label: "Thanks!", action: () => this.startWalking(), next: null },
+                                            { label: "Thanks!", action: () => { this.addItemToInventory('Catnip', 'catnipImage'); this.startWalking(); }, next: null },
                                             { label: "I don't want yours.", action: () => this.startWalking(), next: null }
                                         ]
                                     }
@@ -389,7 +428,7 @@ shuffleCats() {
                                     next: {
                                         text: "Here, take some! This is my favorite color",
                                         options: [ 
-                                            { label: "Thank you.", action: () => this.startWalking(), next: null },
+                                            { label: "Thank you.", action: () => { this.addItemToInventory('Yarn', 'yarnImage'); this.startWalking(); }, next: null },
                                             { label: "Uh...no thanks", action: () => this.startWalking(), next: null }
                                         ]
                                     }
@@ -400,7 +439,7 @@ shuffleCats() {
                                         text: "What? You clearly don't understand how fun yarn can be. Want some?",
                                         options: [
                                             { label: "I don't like yarn. Bye", action: () => this.startWalking(), next: null },
-                                            { label: "Umm, sure.", action: () => this.startWalking(), next: null }
+                                            { label: "Umm, sure.", action: () => { this.addItemToInventory('Yarn', 'yarnImage'); this.startWalking(); }, next: null }
                                         ]
                                     }
                                 }
@@ -412,7 +451,7 @@ shuffleCats() {
                         next: {
                             text: "It's so fun to play with. This is my favorite color, take some!",
                             options: [
-                                { label: "Thank you!", action: () => this.startWalking(), next: null },
+                                { label: "Thank you!", action: () => { this.addItemToInventory('Yarn', 'yarnImage'); this.startWalking(); }, next: null },
                                 { label: "No thanks! Bye.", action: () => this.startWalking(), next: null }
                             ]
                         }
