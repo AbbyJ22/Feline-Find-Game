@@ -242,7 +242,7 @@ shuffleCats() {
             }
         ]
     }
-}
+},
 
         {
             name: "Domino",
