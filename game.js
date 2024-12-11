@@ -51,11 +51,17 @@ class StartMenuScene extends Phaser.Scene {
 }
 
 class GameScene extends Phaser.Scene {
+    // Declare class fields
+    cats = []; // Initialize an empty array to store cats
+    currentCatIndex = 0;
+    shownCats = [];
+
     constructor() {
         super({ key: 'GameScene' });
-          this.cats = []; // Initialize an empty array to store cats
-        this.currentCatIndex = 0; // Track the current cat being shown
+        // You can also initialize any specific logic here if needed
     }
+}
+
 
     preload() {
         this.load.image('fence', 'assets/fence.png');
@@ -189,8 +195,6 @@ class GameScene extends Phaser.Scene {
 
 // Shuffle the cats array to get random order
 shuffleCats() {
-
-this.cats = Phaser.Utils.Array.Shuffle(this.cats);
 
 this.cats = [
     {
@@ -423,7 +427,7 @@ this.cats = [
     }
 ];
 
-  
+  this.cats = Phaser.Utils.Array.Shuffle(this.cats);
 
 
     for (let i = this.cats.length - 1; i > 0; i--) {
@@ -560,8 +564,8 @@ showText(dialogue) {
         });
     }
 
-// Track which cats have been shown
-this.shownCats = [];
+
+
 
 startWalking() {
     // If there's an existing cat sprite, destroy it when starting the walk again
