@@ -594,7 +594,7 @@ update() {
         this.bg.tilePositionX += this.bgScrollSpeed;
     }
 }
-
+}
 
 
 const config = {
