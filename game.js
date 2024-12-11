@@ -566,22 +566,19 @@ showText(dialogue) {
         this.mcIdle.anims.play('Idle');
         this.bgScrollSpeed = 0;
 
-        // Ensure cats array has remaining cats before picking one
-        if (this.cats.length > 0) {
-            const randomCat = Phaser.Utils.Array.GetRandom(this.cats);
+       const randomCat = this.cats[this.currentCatIndex];
 
-            if (randomCat) {
-                randomCat.anims.play(randomCat.animationKey); // Use the cat's specific animation
-            }
-
-            this.showText(randomCat.dialogue);
-
-            // Remove the selected cat from the array
-            Phaser.Utils.Array.Remove(this.cats, randomCat);
-        } else {
-            // Optionally handle the case when all cats have been shown
-            console.log('All cats have been shown!');
-        }
+    if (randomCat && randomCat.spriteKey && randomCat.animationKey) {
+        // Create the sprite using the random cat's spriteKey
+        const catSprite = this.add.sprite(328.5, 355, randomCat.spriteKey);
+        catSprite.setScale(4);
+        catSprite.setOrigin(0.5, 0.5);
+        
+        // Play the animation using the animationKey of the selected cat
+        catSprite.anims.play(randomCat.animationKey);
+    } else {
+        console.error("Selected cat is missing spriteKey or animationKey.");
+    }
     });
 }
 
