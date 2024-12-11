@@ -582,7 +582,7 @@ startWalking() {
 
         if (randomCat && randomCat.spriteKey && randomCat.animationKey) {
             // Create the sprite using the random cat's spriteKey
-            const catSprite = this.add.sprite(390, 355, randomCat.spriteKey);
+            const catSprite = this.add.sprite(410, 355, randomCat.spriteKey);
             catSprite.setScale(4);
             catSprite.setOrigin(0.5, 0.5);
 
