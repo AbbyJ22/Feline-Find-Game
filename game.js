@@ -713,12 +713,17 @@ startWalking() {
         this.mcIdle.anims.play('Idle');
         this.bgScrollSpeed = 0;
 
-      
-        if (this.shownCats.length >= this.cats.length) {
-            console.log("All cats have been shown.");
-            this.scene.start('GameOverScene');
-            return;  // Stop showing cats
-        }
+if (this.shownCats.length >= this.cats.length) {
+    console.log("All cats have been shown.");
+    
+    
+    this.time.delayedCall(1000, () => {
+        this.scene.start('GameOverScene');
+    });
+
+    return;  
+}
+
 
         // Randomly choose a cat that hasn't been shown yet
         let randomCatIndex;
