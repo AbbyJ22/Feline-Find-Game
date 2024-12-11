@@ -46,7 +46,7 @@ class StartMenuScene extends Phaser.Scene {
         .setShadow(5, 5, '#000000', 0, true, true);
 
         // Play button
-        const playButton = this.add.text(config.width / 2, config.height / 2, 'Start', {
+        const playButton = this.add.text(config.width / 2, config.height / 2, 'Continue', {
             fontFamily: 'CustomFont',
             fontSize: '30px',
             fill: '#00FFFF',
@@ -54,7 +54,32 @@ class StartMenuScene extends Phaser.Scene {
         .setOrigin(0.5)
         .setShadow(5, 5, '#000000', 0, true, true);
 
+            const newGameButton = this.add.text(config.width / 2, config.height / 2 - 50, 'New Game', {
+            fontFamily: 'CustomFont',
+            fontSize: '30px',
+            fill: '#00FFFF',
+        })
+        .setOrigin(0.5)
+        .setShadow(5, 5, '#000000', 0, true, true);
+
+        newGameButton.setInteractive();
         playButton.setInteractive();
+
+
+  newGameButton.on('pointerover', () => {
+            newGameButton.setScale(1.2);
+        });
+
+        newGameButton.on('pointerout', () => {
+            newGameButton.setScale(1);
+        });
+
+        newGameButton.on('pointerdown', () => {
+            // Delete the cookies to start a new game
+            deleteCookie('score'); // Delete the score cookie
+            this.scene.start('GameScene'); // Start the game with no saved progress
+        });
+
 
         // Play button interactions
         playButton.on('pointerover', () => {
