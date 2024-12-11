@@ -90,9 +90,6 @@ class GameScene extends Phaser.Scene {
             frameHeight: 32
         });
 
-
-
-
         // Fix: WebFont loader is added correctly
         this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
     }
@@ -191,7 +188,6 @@ class GameScene extends Phaser.Scene {
             this.showText(startingDialogue);
         });
 }
-
 // Shuffle the cats array to get random order
 shuffleCats() {
     this.cats = [
@@ -432,8 +428,6 @@ shuffleCats() {
         [this.cats[i], this.cats[j]] = [this.cats[j], this.cats[i]]; // Swap elements
     }
 }
-
-
 // Show the dialogue for the next cat in the shuffled order
 showNextCatDialogue() {
     if (this.currentCatIndex < this.cats.length) {
@@ -450,7 +444,6 @@ showNextCatDialogue() {
         this.showText(cat.dialogue);
     }
 }
-
 // Function to show text and options
 showText(dialogue) {
     const textBox = this.add.text(50, config.height / 1.5, dialogue.text, {
@@ -476,13 +469,6 @@ showText(dialogue) {
         });
     });
 }
-
-       
-
-
-
-
-
     showText(dialogue) {
         const { text, options } = dialogue;
 
@@ -561,10 +547,6 @@ showText(dialogue) {
             optionTexts.push(optionText);
         });
     }
-
-
-
-
 startWalking() {
     // If there's an existing cat sprite, destroy it when starting the walk again
     if (this.catSprite) {
@@ -585,6 +567,7 @@ startWalking() {
         // Check if all cats have been shown
         if (this.shownCats.length >= this.cats.length) {
             console.log("All cats have been shown.");
+            this.scene.start('GameOverScene');
             return;  // Stop showing cats
         }
 
@@ -620,10 +603,6 @@ startWalking() {
         }
     });
 }
-
-
-
-
 update() {
     if (this.bgScrollSpeed) {
         this.bg.tilePositionX += this.bgScrollSpeed;
@@ -632,12 +611,68 @@ update() {
 }
 
 
+class GameOverScene extends Phaser.Scene {
+    constructor() {
+        super({ key: 'GameOverScene' });
+    }
+
+
+    preload() {
+        this.load.image('mainbg', 'assets/mainbg.png');
+    }
+
+    create() {
+        // Background
+        this.bg = this.add.tileSprite(0, 0, config.width, config.height, 'mainbg').setOrigin(0);
+
+        // Title text
+        this.add.text(config.width / 2, config.height / 3, 'The End!', {
+            fontFamily: 'CustomFont',
+            fontSize: '40px',
+            fill: '#e08543',
+        })
+        .setOrigin(0.5)
+        .setShadow(5, 5, '#000000', 0, true, true);
+
+        // Play button
+        const restartButton = this.add.text(config.width / 2, config.height / 2, 'Main Menu', {
+            fontFamily: 'CustomFont',
+            fontSize: '30px',
+            fill: '#00FFFF',
+        })
+        .setOrigin(0.5)
+        .setShadow(5, 5, '#000000', 0, true, true);
+
+        restartButton.setInteractive();
+
+        // Play button interactions
+        restartButton.on('pointerover', () => {
+            playButton.setScale(1.2);
+        });
+
+        restartButton.on('pointerout', () => {
+            playButton.setScale(1);
+        });
+
+        restartButton.on('pointerdown', () => {
+            this.scene.start('StartMenuScene');
+        });
+    }
+
+    update() {
+        this.bg.tilePositionX += 1; // Moving the background
+    }
+}
+
+
+
+
 const config = {
     type: Phaser.AUTO,
     width: 657,
     height: 453,
     parent: 'game-container',
-    scene: [StartMenuScene, GameScene],
+    scene: [StartMenuScene, GameScene, GameOverScene],
     pixelArt: true,
      render: {
         antialias: false,
@@ -646,5 +681,3 @@ const config = {
 };
 
 const game = new Phaser.Game(config);
-
-
