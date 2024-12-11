@@ -23,12 +23,6 @@ function deleteCookie(name) {
 
 
 
-
-
-
-
-
-
 class StartMenuScene extends Phaser.Scene {
     constructor() {
         super({ key: 'StartMenuScene' });
@@ -130,10 +124,6 @@ class GameScene extends Phaser.Scene {
         });
     });
 } 
-
-
-
-
 
     preload() {
         this.load.image('fence', 'assets/fence.png');
