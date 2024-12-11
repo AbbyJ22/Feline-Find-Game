@@ -570,7 +570,7 @@ showText(dialogue) {
 
     if (randomCat && randomCat.spriteKey && randomCat.animationKey) {
         // Create the sprite using the random cat's spriteKey
-        const catSprite = this.add.sprite(328.5, 355, randomCat.spriteKey);
+        const catSprite = this.add.sprite(360, 355, randomCat.spriteKey);
         catSprite.setScale(4);
         catSprite.setOrigin(0.5, 0.5);
         
