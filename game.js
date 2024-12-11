@@ -71,7 +71,7 @@ class GameScene extends Phaser.Scene {
         this.scale.width / 2, 
         this.scale.height / 2 + 50, // Offset slightly for image display
         message, 
-        { font: '24px TextFont', fill: '#ffffff', backgroundColor: '#000000', padding: { x: 10, y: 5 } }
+        { font: '15px TextFont', fill: '#ffffff', backgroundColor: '#000000', padding: { x: 10, y: 5 } }
     ).setOrigin(0.5);
            const image = this.add.image(
         this.scale.width / 2, 
