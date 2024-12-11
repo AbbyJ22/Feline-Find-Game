@@ -112,6 +112,13 @@ class GameScene extends Phaser.Scene {
         // You can also initialize any specific logic here if needed
     }
 
+init(data) {
+        // Use data to determine whether to reset or load progress
+        this.isNewGame = data.isNewGame || false;
+    }
+
+
+
 
    addItemToInventory(itemName) {
 
@@ -233,6 +240,15 @@ class GameScene extends Phaser.Scene {
             this.scoreText.setScale(1);
         }
     });
+
+
+         if (this.isNewGame) {
+            // Reset game state for a new game
+            this.resetGame();
+        } else {
+            // Load progress (from cookies or other saved states)
+            this.loadProgress();
+        }
 
           this.shuffleCats();
 
