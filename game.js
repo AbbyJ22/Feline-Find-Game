@@ -53,6 +53,8 @@ class StartMenuScene extends Phaser.Scene {
 class GameScene extends Phaser.Scene {
     constructor() {
         super({ key: 'GameScene' });
+          this.cats = []; // Initialize an empty array to store cats
+        this.currentCatIndex = 0; // Track the current cat being shown
     }
 
     preload() {
@@ -70,7 +72,18 @@ class GameScene extends Phaser.Scene {
             frameWidth: 32,
             frameHeight: 32
         });
-
+                this.load.spritesheet('twoIdle', 'assets/sprites/twoIdle.png', {
+            frameWidth: 32,
+            frameHeight: 32
+        });
+                        this.load.spritesheet('threeIdle', 'assets/sprites/threeIdle.png', {
+            frameWidth: 32,
+            frameHeight: 32
+        });
+        this.load.spritesheet('fourIdle', 'assets/sprites/fourIdle.png', {
+            frameWidth: 32,
+            frameHeight: 32
+        });
 
 
 
@@ -85,6 +98,8 @@ class GameScene extends Phaser.Scene {
                 families: ['TextFont'], // Font name as defined in your CSS
             },
         });
+
+          this.shuffleCats();
 
         // Initialize background scroll speed
         this.bgScrollSpeed = 0;
@@ -105,9 +120,30 @@ class GameScene extends Phaser.Scene {
             frameRate: 4,
             repeat: -1
         });
+
+
+
          this.anims.create({
             key: 'One',
             frames: this.anims.generateFrameNumbers('oneIdle', { start: 0, end: 1 }),
+            frameRate: 2,
+            repeat: -1
+        });
+                  this.anims.create({
+            key: 'Two',
+            frames: this.anims.generateFrameNumbers('twoIdle', { start: 0, end: 1 }),
+            frameRate: 2,
+            repeat: -1
+        });
+                           this.anims.create({
+            key: 'Three',
+            frames: this.anims.generateFrameNumbers('threeIdle', { start: 0, end: 1 }),
+            frameRate: 2,
+            repeat: -1
+        });
+                                    this.anims.create({
+            key: 'Four',
+            frames: this.anims.generateFrameNumbers('fourIdle', { start: 0, end: 1 }),
             frameRate: 2,
             repeat: -1
         });
@@ -146,7 +182,302 @@ class GameScene extends Phaser.Scene {
             };
             this.showText(startingDialogue);
         });
+}
+
+// Shuffle the cats array to get random order
+shuffleCats() {
+
+
+this.cats = [
+    {
+        name: "Pearl",
+        spriteKey: 'oneIdle',
+        animationKey: 'One', 
+        dialogue: {
+            text: "Hi! I'm Pearl. Do you like climbing trees?", 
+            options: [
+                { 
+                    label: "I love it!",
+                    next: { 
+                        text: "Really! Have you ever gotten stuck? Be honest.", 
+                        options: [ 
+                            {
+                                label: "Yes, a few times.", 
+                                next: {
+                                    text: "Me too! I'll help you if you ever need it.",
+                                    options: [ 
+                                        { label: "Thank you!", action: () => this.startWalking(), next: null },
+                                        { label: "Okay!", action: () => this.startWalking(), next: null }
+                                    ]
+                                }
+                            },
+                            {
+                                label: "No, I'm an expert climber!", 
+                                next: {
+                                    text: "Wow, impressive! Maybe you can teach me someday.",
+                                    options: [
+                                        { label: "Sure!", action: () => this.startWalking(), next: null },
+                                        { label: "Maybe later.", action: () => this.startWalking(), next: null }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                },
+                { 
+                    label: "Not really.", 
+                    next: {
+                        text: "Oh, that's okay! It's not for everyone.",
+                        options: [
+                            { label: "Thanks for understanding.", action: () => this.startWalking(), next: null },
+                            { label: "See you later!", action: () => this.startWalking(), next: null }
+                        ]
+                    }
+                }
+            ]
+        }
+    },
+    {
+        name: "Domino",
+        spriteKey: 'twoIdle',
+        animationKey: 'Two', 
+        dialogue: {
+            text: "Hey! I'm Domino. You ever gone fishing?", 
+            options: [
+                { 
+                    label: "A few times, yeah!",
+                    next: { 
+                        text: "I'm the best at catching fish! You'd never beat me!", 
+                        options: [ 
+                            {
+                                label: "Is that a challenge?", 
+                                next: {
+                                    text: "Maybe it is.",
+                                    options: [ 
+                                        { label: "I'll win!", action: () => this.startWalking(), next: null },
+                                        { label: "It'll be a close match!", action: () => this.startWalking(), next: null }
+                                    ]
+                                }
+                            },
+                            {
+                                label: "Maybe not, but I still love fish!", 
+                                next: {
+                                    text: "Hey, why don't you have this one I caught earlier?",
+                                    options: [
+                                        { label: "Thank You!", action: () => this.startWalking(), next: null },
+                                        { label: "I'll catch my own.", action: () => this.startWalking(), next: null }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                },
+                { 
+                    label: "No, I haven't", 
+                    next: {
+                        text: "Well, I'll have to teach you. Fishing is fun!",
+                        options: [
+                            { 
+                                label: "Okay, I look forward to it!", 
+                                next: { 
+                                    text: "Why not take this one for the road?", 
+                                    options: [ 
+                                        { label: "Thanks!", action: () => this.startWalking(), next: null },
+                                        { label: "No thanks.", action: () => this.startWalking(), next: null }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                },
+                { 
+                    label: "No thanks, I don't want to.", 
+                    next: {
+                        text: "Oh, okay. If you change your mind, come find me!",
+                        options: [
+                            { label: "Okay.", action: () => this.startWalking(), next: null },
+                            { label: "I don't think I will, but okay.", action: () => this.startWalking(), next: null }
+                        ]
+                    }
+                }
+            ]
+        }
+    },
+    {
+        name: "Sunny",
+        spriteKey: 'threeIdle',
+        animationKey: 'Three', 
+        dialogue: {
+            text: "My name's Sunny. I love catnip. You ever tried it?", 
+            options: [
+                { 
+                    label: "It's the best!",
+                    next: { 
+                        text: "My owners put some in the window for me!", 
+                        options: [ 
+                            {
+                                label: "Lucky! I wish mine did.", 
+                                next: {
+                                    text: "Do you want some? I've got extra.",
+                                    options: [ 
+                                        { label: "Really? Thanks!", action: () => this.startWalking(), next: null },
+                                        { label: "No thanks actually.", action: () => this.startWalking(), next: null }
+                                    ]
+                                }
+                            },
+                            {
+                                label: "Are you bragging?", 
+                                next: {
+                                    text: "What, no. I was gonna offer you some, but I don't think I want to now.",
+                                    options: [
+                                        { label: "Oh okay.", action: () => this.startWalking(), next: null },
+                                        { label: "I didn't want it anyway.", action: () => this.startWalking(), next: null }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                },
+                { 
+                    label: "No, never.", 
+                    next: {
+                        text: "You've got to! It smells amazing.",
+                        options: [
+                            { 
+                                label: "Woah, wish I could get some.", 
+                                next: { 
+                                    text: "Here's some extra of mine!", 
+                                    options: [ 
+                                        { label: "Thanks!", action: () => this.startWalking(), next: null },
+                                        { label: "I don't want yours.", action: () => this.startWalking(), next: null }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                },
+                { 
+                    label: "I don't want any.", 
+                    next: {
+                        text: "Well, okay then. Bye!",
+                        options: [
+                            { label: "Bye.", action: () => this.startWalking(), next: null },
+                            { label: "See you later!", action: () => this.startWalking(), next: null }
+                        ]
+                    }
+                }
+            ]
+        }
+    },
+    {
+        name: "Storm",
+        spriteKey: 'fourIdle',
+        animationKey: 'Four', 
+        dialogue: {
+            text: "Storm is my name. I need more yarn!", 
+            options: [
+                { 
+                    label: "Yarn?",
+                    next: { 
+                        text: "Yes! It's so fun to play with! I don't have enough.", 
+                        options: [ 
+                            {
+                                label: "Um, okay", 
+                                next: {
+                                    text: "Here, take some! This is my favorite color",
+                                    options: [ 
+                                        { label: "Thank you.", action: () => this.startWalking(), next: null },
+                                        { label: "Uh...no thanks", action: () => this.startWalking(), next: null }
+                                    ]
+                                }
+                            },
+                            {
+                                label: "I don't think you need any more.", 
+                                next: {
+                                    text: "What? You clearly don't understand how fun yarn can be. Want some?",
+                                    options: [
+                                        { label: "I don't like yarn. Bye", action: () => this.startWalking(), next: null },
+                                        { label: "Umm, sure.", action: () => this.startWalking(), next: null }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                },
+                { 
+                    label: "Why?", 
+                    next: {
+                        text: "It's so fun to play with. This is my favorite color, take some!",
+                        options: [
+                            { label: "Thank you!", action: () => this.startWalking(), next: null },
+                            { label: "No thanks! Bye.", action: () => this.startWalking(), next: null }
+                        ]
+                    }
+                }
+            ]
+        }
     }
+];
+
+
+
+
+
+
+    for (let i = this.cats.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [this.cats[i], this.cats[j]] = [this.cats[j], this.cats[i]]; // Swap elements
+    }
+}
+
+// Show the dialogue for the next cat in the shuffled order
+showNextCatDialogue() {
+    if (this.currentCatIndex < this.cats.length) {
+        const cat = this.cats[this.currentCatIndex];
+        this.currentCatIndex++;
+
+        // Create sprite for the cat
+        const catSprite = this.add.sprite(360, 355, cat.spriteKey);
+        catSprite.setScale(4);
+        catSprite.setOrigin(0.5, 0.5);
+        catSprite.anims.play(cat.animationKey);
+
+        // Show cat's dialogue
+        this.showText(cat.dialogue);
+    }
+}
+
+// Function to show text and options
+showText(dialogue) {
+    const textBox = this.add.text(50, config.height / 1.5, dialogue.text, {
+        fontFamily: 'CustomFont',
+        fontSize: '20px',
+        fill: '#FFFFFF',
+    });
+
+    // Show options as buttons
+    dialogue.options.forEach((option, index) => {
+        const optionButton = this.add.text(50, config.height / 1.5 + 40 + (index * 40), option.label, {
+            fontFamily: 'CustomFont',
+            fontSize: '20px',
+            fill: '#00FFFF',
+        }).setInteractive();
+
+        optionButton.on('pointerdown', () => {
+            if (option.next) {
+                this.showText(option.next);
+            }
+            option.action && option.action();
+            this.startWalking();
+        });
+    });
+}
+
+       
+
+
+
+
 
     showText(dialogue) {
         const { text, options } = dialogue;
@@ -228,25 +559,42 @@ class GameScene extends Phaser.Scene {
     }
 
     startWalking() {
-        // Play walking animation
-        this.mcIdle.anims.play('Walk');
+    // Play walking animation
+    this.mcIdle.anims.play('Walk');
 
-        // Scroll the background
-        this.bgScrollSpeed = 2;
+    // Scroll the background
+    this.bgScrollSpeed = 2;
 
-        // Stop the animation and scrolling after 3 seconds
-        this.time.delayedCall(3000, () => {
-            this.mcIdle.anims.play('Idle');
-            this.bgScrollSpeed = 0;
-        });
-    }
+    // Stop the animation and scrolling after 3 seconds
+    this.time.delayedCall(3000, () => {
+        this.mcIdle.anims.play('Idle');
+        this.bgScrollSpeed = 0;
 
-    update() {
-        if (this.bgScrollSpeed) {
-            this.bg.tilePositionX += this.bgScrollSpeed;
+        // Ensure cats array has remaining cats before picking one
+        if (this.cats.length > 0) {
+            const randomCat = Phaser.Utils.Array.GetRandom(this.cats);
+
+              if (randomCat) {
+                randomCat.anims.play('animationKey'); // Use the cat's specific animation
+            }
+            this.showText(randomCat.dialogue);
+
+
+            // Remove the selected cat from the array
+            Phaser.Utils.Array.Remove(this.cats, randomCat);
+        } else {
+            // Optionally handle the case when all cats have been shown
+            console.log('All cats have been shown!');
         }
+    });
+}
+
+update() {
+    if (this.bgScrollSpeed) {
+        this.bg.tilePositionX += this.bgScrollSpeed;
     }
 }
+
 
 
 const config = {
