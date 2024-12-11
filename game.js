@@ -77,7 +77,7 @@ class StartMenuScene extends Phaser.Scene {
         newGameButton.on('pointerdown', () => {
             // Delete the cookies to start a new game
             deleteCookie('score'); // Delete the score cookie
-            this.scene.start('GameScene'); // Start the game with no saved progress
+            this.scene.start('GameScene', { isNewGame: false }); // Start the game with no saved progress
         });
 
 
@@ -91,7 +91,7 @@ class StartMenuScene extends Phaser.Scene {
         });
 
         playButton.on('pointerdown', () => {
-            this.scene.start('GameScene');
+            this.scene.start('GameScene', { isNewGame: true });
         });
     }
 
