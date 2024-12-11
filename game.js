@@ -423,8 +423,7 @@ this.cats = [
     }
 ];
 
-  const randomCatIndex = Phaser.Math.Between(0, this.cats.length - 1);
-    const selectedCat = this.cats[randomCatIndex];
+  
 
 
     for (let i = this.cats.length - 1; i > 0; i--) {
