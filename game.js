@@ -101,7 +101,7 @@ class GameScene extends Phaser.Scene {
 
     // Update the score display
     this.scoreText.setText(`Items: ${this.score}`);
- setCookie('score', this.score, 7); // Save the score for 7 days
+  setCookie('score', this.score, 7);
 
 
 
@@ -129,7 +129,7 @@ class GameScene extends Phaser.Scene {
             }
         });
     });
- 
+} 
 
 
 
@@ -179,12 +179,12 @@ class GameScene extends Phaser.Scene {
                 families: ['TextFont'], // Font name as defined in your CSS
             },
         });
- const savedScore = parseInt(getCookie('score')) || 0;
-         this.score = savedScore;
+
+         this.score = 0;
 
     // Display the score on the screen
     this.scoreText = this.add.text(16, 16, 'Items: 0', { font: '15px TextFont', fill: '#ffffff' });
-}
+
 
           this.shuffleCats();
 
