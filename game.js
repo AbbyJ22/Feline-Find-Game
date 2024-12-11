@@ -131,7 +131,7 @@ class GameScene extends Phaser.Scene {
             itemImageKey // Use the dynamically set image key here
         ).setScale(5); // Adjust scale if needed
 
-        this.time.delayedCall(2000, () => {
+        this.time.delayedCall(1000, () => {
             this.tweens.add({
                 targets: [text, image],
                 alpha: 0,
