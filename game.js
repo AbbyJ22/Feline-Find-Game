@@ -77,7 +77,7 @@ class StartMenuScene extends Phaser.Scene {
         newGameButton.on('pointerdown', () => {
             // Delete the cookies to start a new game
             deleteCookie('score'); // Delete the score cookie
-            this.scene.start('GameScene', { isNewGame: false }); // Start the game with no saved progress
+            this.scene.start('GameScene', { isNewGame: true }); // Start the game with no saved progress
         });
 
 
@@ -91,7 +91,7 @@ class StartMenuScene extends Phaser.Scene {
         });
 
         playButton.on('pointerdown', () => {
-            this.scene.start('GameScene', { isNewGame: true });
+            this.scene.start('GameScene', { isNewGame: false });
         });
     }
 
@@ -713,7 +713,7 @@ startWalking() {
         this.mcIdle.anims.play('Idle');
         this.bgScrollSpeed = 0;
 
-        // Check if all cats have been shown
+      
         if (this.shownCats.length >= this.cats.length) {
             console.log("All cats have been shown.");
             this.scene.start('GameOverScene');
