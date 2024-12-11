@@ -101,6 +101,9 @@ class GameScene extends Phaser.Scene {
 
           this.shuffleCats();
 
+           this.currentCat = this.cats[this.currentCatIndex];
+             this.showText(this.currentCat.dialogue);
+
         // Initialize background scroll speed
         this.bgScrollSpeed = 0;
 
@@ -586,7 +589,8 @@ showText(dialogue) {
         console.error("Selected cat is missing spriteKey or animationKey.");
     }
      this.time.delayedCall(500, () => {
-            this.showText(currentCat.dialogue);
+          const currentCat = this.cats[this.currentCatIndex];
+this.showText(currentCat.dialogue);
         });
     });
 }
