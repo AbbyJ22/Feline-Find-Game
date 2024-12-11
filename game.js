@@ -190,10 +190,11 @@ class GameScene extends Phaser.Scene {
             },
         });
 
-         this.score = 0;
+           const savedScore = parseInt(getCookie('score')) || 0;
+    this.score = savedScore;
 
     // Display the score on the screen
-    this.scoreText = this.add.text(16, 16, 'Items: 0', { font: '15px TextFont', fill: '#ffffff' });
+     this.scoreText = this.add.text(16, 16, `Items: ${this.score}`, { font: '18px TextFont', fill: '#000000' });
 
 
           this.shuffleCats();
