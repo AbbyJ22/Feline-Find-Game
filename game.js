@@ -89,11 +89,21 @@ class GameScene extends Phaser.Scene {
 
 
    addItemToInventory(itemName) {
+
+     if (this.inventory.includes(itemName)) {
+        return; // Item already collected, do nothing
+    }
+
+    // Only allow up to 4 unique items to be collected
+    if (this.inventory.length >= 4) {
+        return; // Stop adding items if the limit is reached
+    }
+
     this.inventory.push(itemName); // Add the item to the inventory
 
     this.score++;
     // Update the score display
-    this.scoreText.setText(`Items: ${this.score}`);
+    this.scoreText.setText(`Items: ${this.score}/4`);
     setCookie('score', this.score, 7);
 
     // Function to get the image key based on the item name
@@ -193,7 +203,7 @@ class GameScene extends Phaser.Scene {
             this.score = savedScore;
 
             // Display the score on the screen after the font is loaded
-            this.scoreText = this.add.text(116, 116, `Items: ${this.score}`, { font: '18px TextFont', fill: '#000000' });
+            this.scoreText = this.add.text(116, 116, `Items: ${this.score}/4`, { font: '18px TextFont', fill: '#000000' });
             this.scoreText.setDepth(10);
             this.scoreText.setScale(1);
         }
