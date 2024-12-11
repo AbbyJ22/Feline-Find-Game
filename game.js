@@ -190,6 +190,7 @@ class GameScene extends Phaser.Scene {
 // Shuffle the cats array to get random order
 shuffleCats() {
 
+this.cats = Phaser.Utils.Array.Shuffle(this.cats);
 
 this.cats = [
     {
@@ -560,6 +561,9 @@ showText(dialogue) {
         });
     }
 
+// Track which cats have been shown
+this.shownCats = [];
+
 startWalking() {
     // If there's an existing cat sprite, destroy it when starting the walk again
     if (this.catSprite) {
@@ -572,16 +576,24 @@ startWalking() {
     // Scroll the background
     this.bgScrollSpeed = 2;
 
-    // Stop the animation and scrolling after 3 seconds (you can adjust this timing)
+    // Stop the animation and scrolling after 3 seconds
     this.time.delayedCall(3000, () => {
         this.mcIdle.anims.play('Idle');
         this.bgScrollSpeed = 0;
 
-  const randomCatIndex = Phaser.Math.Between(0, this.cats.length - 1);
-        const randomCat = this.cats[randomCatIndex];
+        // Check if all cats have been shown
+        if (this.shownCats.length >= this.cats.length) {
+            console.log("All cats have been shown.");
+            return;  // Stop showing cats
+        }
 
-        // Create the random cat only if it's not already showing
-        const randomCat = this.cats[this.currentCatIndex];
+        // Randomly choose a cat that hasn't been shown yet
+        let randomCatIndex;
+        do {
+            randomCatIndex = Phaser.Math.Between(0, this.cats.length - 1);
+        } while (this.shownCats.includes(randomCatIndex));  // Ensure the same cat isn't chosen again
+
+        const randomCat = this.cats[randomCatIndex];
 
         if (randomCat && randomCat.spriteKey && randomCat.animationKey) {
             // Create the sprite using the random cat's spriteKey
@@ -597,14 +609,17 @@ startWalking() {
 
             // Show the cat's dialogue
             this.time.delayedCall(500, () => {
-                const currentCat = this.cats[this.currentCatIndex];
-                this.showText(currentCat.dialogue);
+                this.showText(randomCat.dialogue);
             });
+
+            // Add the shown cat to the shownCats array
+            this.shownCats.push(randomCatIndex);
         } else {
             console.error("Selected cat is missing spriteKey or animationKey.");
         }
     });
 }
+
 
 
 
