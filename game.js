@@ -255,10 +255,12 @@ showItemFeedback(message, itemName) {
             // Reset game state for a new game
             this.resetGame();
               this.shownCats = [];
+               this.inventory = [];
         } else {
             // Load progress (from cookies or other saved states)
             this.loadProgress();
              this.shownCats = [];
+              this.inventory = [];
         }
 
           this.shuffleCats();
