@@ -150,6 +150,9 @@ init(data) {
     this.inventory.push(itemName); // Add the item to the inventory
 
     this.score++;
+  this.data.set('score', this.score);
+
+    
     // Update the score display
     this.scoreText.setText(`Items: ${this.score}/4`);
     setCookie('score', this.score, 7);
@@ -248,7 +251,7 @@ init(data) {
         },
         active: () => {
             const savedScore = parseInt(getCookie('score')) || 0;
-            this.score = savedScore;
+             this.score = this.data.get('score');
 
             // Display the score on the screen after the font is loaded
             this.scoreText = this.add.text(500, 25, `Items: ${this.score}/4`, { font: '18px TextFont', fill: '#000000' });
