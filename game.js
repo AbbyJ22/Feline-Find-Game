@@ -769,6 +769,10 @@ if (this.shownCats.length >= this.cats.length) {
 }
 
  resetGame() {
+     this.score = 0;
+      this.inventory = [];
+        this.currentCatIndex = 0; // Reset cat index
+    this.shownCats = []; /
         // Reset the variables that track progress
         this.currentLevel = 1; // Example: reset to level 1
    // Optionally delete the score cookie for new games
