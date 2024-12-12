@@ -765,6 +765,11 @@ if (this.shownCats.length >= this.cats.length) {
    // Optionally delete the score cookie for new games
     }
 
+ loadProgress() {
+
+     this.currentLevel = 1;
+ }
+
 update() {
     if (this.bgScrollSpeed) {
         this.bg.tilePositionX += this.bgScrollSpeed;
