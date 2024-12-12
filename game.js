@@ -260,7 +260,7 @@ showItemFeedback(message, itemName) {
             // Load progress (from cookies or other saved states)
             this.loadProgress();
              this.shownCats = [];
-              this.inventory = [];
+             
         }
 
           this.shuffleCats();
