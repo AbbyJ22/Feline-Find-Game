@@ -254,6 +254,7 @@ showItemFeedback(message, itemName) {
          if (data.isNewGame) {
             // Reset game state for a new game
             this.resetGame();
+              this.shownCats = [];
         } else {
             // Load progress (from cookies or other saved states)
             this.loadProgress();
