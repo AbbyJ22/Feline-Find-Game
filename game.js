@@ -137,8 +137,7 @@ init(data) {
 
 
    addItemToInventory(itemName) {
-
-     if (this.inventory.includes(itemName)) {
+    if (this.inventory.includes(itemName)) {
         return; // Item already collected, do nothing
     }
 
@@ -149,29 +148,41 @@ init(data) {
 
     this.inventory.push(itemName); // Add the item to the inventory
 
+    // Increment the score and update the data
     this.score++;
-  this.data.set('score', this.score);
+    this.data.set('score', this.score);
 
-    
     // Update the score display
     this.scoreText.setText(`Items: ${this.score}/4`);
+
+    // Save the score in cookies
     setCookie('score', this.score, 7);
 
     // Function to get the image key based on the item name
-    function getItemImageKey(itemName) {
-        switch(itemName) {
-            case "Yarn":
-                return 'yarnImage';
-            case "Fish":
-                return 'fishImage';
-            case "Branch":
-                return 'branchImage';
-            case "Catnip":
-                return 'catnipImage';
-            default:
-                return null; // In case the item isn't recognized
-        }
+    const itemImageKey = getItemImageKey(itemName);
+
+    if (itemImageKey) {
+        // Add the item image to the scene at a specific position
+        this.add.image(100 + this.inventory.length * 100, 100, itemImageKey); // Adjust position for each item
     }
+}
+
+// Function to get the image key based on the item name
+function getItemImageKey(itemName) {
+    switch(itemName) {
+        case "Yarn":
+            return 'yarnImage'; // Image key for Yarn
+        case "Fish":
+            return 'fishImage'; // Image key for Fish
+        case "Branch":
+            return 'branchImage'; // Image key for Branch
+        case "Catnip":
+            return 'catnipImage'; // Image key for Catnip
+        default:
+            return null; // In case the item isn't recognized
+    }
+}
+
 
     // Get the image key for the obtained item
     let itemImageKey = getItemImageKey(itemName);
