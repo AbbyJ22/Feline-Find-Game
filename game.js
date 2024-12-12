@@ -118,63 +118,56 @@ class GameScene extends Phaser.Scene {
     }
 
 
-   addItemToInventory(itemName) {
-
- if (!this.inventory) {
+ addItemToInventory(itemName) {
+    // Ensure the inventory array is initialized
+    if (!this.inventory) {
         this.inventory = [];
     }
 
-
-     if (this.inventory.includes(itemName)) {
+    // Prevent adding duplicate items
+    if (this.inventory.includes(itemName)) {
+        console.log(`Item "${itemName}" already in inventory.`);
         return; // Item already collected, do nothing
     }
 
-    // Only allow up to 4 unique items to be collected
+    // Enforce a maximum limit of 4 items
     if (this.inventory.length >= 4) {
+        console.log("Inventory is full. Cannot add more items.");
         return; // Stop adding items if the limit is reached
     }
 
-    this.inventory.push(itemName); // Add the item to the inventory
+    // Add the item to the inventory and increment the score
+    this.inventory.push(itemName);
+    this.score = this.inventory.length; // Ensure score matches inventory size
 
-    this.score++;
     // Update the score display
     this.scoreText.setText(`Items: ${this.score}/4`);
     setCookie('score', this.score, 7);
 
-    // Function to get the image key based on the item name
-    function getItemImageKey(itemName) {
-        switch(itemName) {
-            case "Yarn":
-                return 'yarnImage';
-            case "Fish":
-                return 'fishImage';
-            case "Branch":
-                return 'branchImage';
-            case "Catnip":
-                return 'catnipImage';
-            default:
-                return null; // In case the item isn't recognized
-        }
-    }
+    console.log(`Item "${itemName}" added. Current inventory: ${this.inventory}`);
 
-    // Get the image key for the obtained item
-    let itemImageKey = getItemImageKey(itemName);
+    // Display item feedback (optional)
+    const message = `You obtained: ${itemName}`;
+    this.showItemFeedback(message, itemName);
+}
+
+// Helper function to display feedback for obtaining items
+showItemFeedback(message, itemName) {
+    const itemImageKey = this.getItemImageKey(itemName);
 
     if (itemImageKey) {
-        const message = `You obtained: ${itemName}`;
-
         const text = this.add.text(
             this.scale.width / 2, 
-            this.scale.height / 2 + 50, // Offset slightly for image display
+            this.scale.height / 2 + 50,
             message, 
             { font: '15px TextFont', fill: '#ffffff', backgroundColor: '#000000', padding: { x: 10, y: 5 } }
         ).setOrigin(0.5);
 
         const image = this.add.image(
             this.scale.width / 2, 
-            this.scale.height / 2 - 20, // Offset image above the text
-            itemImageKey // Use the dynamically set image key here
-        ).setScale(3); // Adjust scale if needed
+            this.scale.height / 2 - 20, 
+            itemImageKey
+        ).setScale(3);
 
         this.time.delayedCall(1000, () => {
             this.tweens.add({
