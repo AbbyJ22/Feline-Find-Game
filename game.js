@@ -902,3 +902,7 @@ const config = {
 };
 
 const game = new Phaser.Game(config);
+
+game.events.once('pointerdown', () => {
+    game.sound.context.resume();
+});
