@@ -36,6 +36,9 @@ class StartMenuScene extends Phaser.Scene {
         // Background
         this.bg = this.add.tileSprite(0, 0, config.width, config.height, 'mainbg').setOrigin(0);
 
+this.score = 0; 
+
+
         // Title text
         this.add.text(config.width / 2, config.height / 3, 'Feline Find', {
             fontFamily: 'CustomFont',
@@ -114,10 +117,14 @@ class GameScene extends Phaser.Scene {
     }
 
 init(data) {
-        // Use data to determine whether to reset or load progress
-        this.isNewGame = data.isNewGame || false;
+    this.isNewGame = data.isNewGame || false;
+    if (!this.isNewGame) {
+        const savedScore = parseInt(getCookie('score')) || 0;
+        this.score = savedScore; // Load the score from cookies
+    } else {
+        this.score = 0; // Reset the score for a new game
     }
-
+}
 
 
 
@@ -766,9 +773,12 @@ if (this.shownCats.length >= this.cats.length) {
     }
 
  loadProgress() {
-
-     this.currentLevel = 1;
- }
+    const savedScore = parseInt(getCookie('score')) || 0;
+    this.score = savedScore;
+    if (this.scoreText) {
+        this.scoreText.setText(`Items: ${this.score}/4`);
+    }
+}
 
 update() {
     if (this.bgScrollSpeed) {
