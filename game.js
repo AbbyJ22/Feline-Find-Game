@@ -234,7 +234,7 @@ showItemFeedback(message, itemName) {
         this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
     }
 
-    create() {
+    create(data) {
         WebFont.load({
         custom: {
             families: ['TextFont'], // Font name as defined in your CSS
@@ -251,7 +251,7 @@ showItemFeedback(message, itemName) {
     });
 
 
-         if (this.isNewGame) {
+         if (data.isNewGame) {
             // Reset game state for a new game
             this.resetGame();
         } else {
@@ -769,13 +769,9 @@ if (this.shownCats.length >= this.cats.length) {
 }
 
  resetGame() {
-     this.score = 0;
-      this.inventory = [];
-        this.currentCatIndex = 0; // Reset cat index
-    this.shownCats = [];         // Reset the variables that track progress
+     this.score = 0; 
         this.currentLevel = 1; 
-        deleteCookie('score');// Example: reset to level 1
-   // Optionally delete the score cookie for new games
+        deleteCookie('score');
     }
 
  loadProgress() {
@@ -787,7 +783,7 @@ if (this.shownCats.length >= this.cats.length) {
 }
 
 update() {
-    if (this.bgScrollSpeed) {
+    if (this.bg && this.bg.tilePositionX !== undefined) {
         this.bg.tilePositionX += this.bgScrollSpeed;
     }
 }
