@@ -33,7 +33,7 @@ class StartMenuScene extends Phaser.Scene {
     create() {
 
 this.menuMusic = this.sound.add('menuMusic', {
-        volume: 0.5, 
+        volume: 0.3, 
         loop: true 
     });
 
@@ -227,7 +227,7 @@ showItemFeedback(message, itemName) {
     create(data) {
 
   this.forestMusic = this.sound.add('forestMusic', {
-        volume: 0.5, 
+        volume: 0.3, 
         loop: true  
     });
 
@@ -773,7 +773,7 @@ class GameOverScene extends Phaser.Scene {
     create() {
 
 this.menuMusic = this.sound.add('menuMusic', {
-        volume: 0.5,
+        volume: 0.3,
         loop: true  
     });
     
