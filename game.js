@@ -135,88 +135,87 @@ init(data) {
 
 
 
+  addItemToInventory(itemName) {
+        if (this.inventory.includes(itemName)) {
+            return; // Item already collected, do nothing
+        }
 
-   addItemToInventory(itemName) {
-    if (this.inventory.includes(itemName)) {
-        return; // Item already collected, do nothing
+        // Only allow up to 4 unique items to be collected
+        if (this.inventory.length >= 4) {
+            return; // Stop adding items if the limit is reached
+        }
+
+        this.inventory.push(itemName); // Add the item to the inventory
+
+        // Increment the score and update the data
+        this.score++;
+        this.data.set('score', this.score);
+
+        // Update the score display
+        this.scoreText.setText(`Items: ${this.score}/4`);
+
+        // Save the score in cookies
+        setCookie('score', this.score, 7);
+
+        // Get the image key based on the item name
+        const itemImageKey = this.getItemImageKey(itemName); // Now it's within the class
+
+        if (itemImageKey) {
+            // Add the item image to the scene at a specific position
+            this.add.image(100 + this.inventory.length * 100, 100, itemImageKey); // Adjust position for each item
+        }
+
+        // Show the item obtained message
+        this.showItemObtainedMessage(itemName, itemImageKey);
     }
-
-    // Only allow up to 4 unique items to be collected
-    if (this.inventory.length >= 4) {
-        return; // Stop adding items if the limit is reached
-    }
-
-    this.inventory.push(itemName); // Add the item to the inventory
-
-    // Increment the score and update the data
-    this.score++;
-    this.data.set('score', this.score);
-
-    // Update the score display
-    this.scoreText.setText(`Items: ${this.score}/4`);
-
-    // Save the score in cookies
-    setCookie('score', this.score, 7);
 
     // Function to get the image key based on the item name
-    const itemImageKey = getItemImageKey(itemName);
-
-    if (itemImageKey) {
-        // Add the item image to the scene at a specific position
-        this.add.image(100 + this.inventory.length * 100, 100, itemImageKey); // Adjust position for each item
+    getItemImageKey(itemName) {
+        switch (itemName) {
+            case "Yarn":
+                return 'yarnImage'; // Image key for Yarn
+            case "Fish":
+                return 'fishImage'; // Image key for Fish
+            case "Branch":
+                return 'branchImage'; // Image key for Branch
+            case "Catnip":
+                return 'catnipImage'; // Image key for Catnip
+            default:
+                return null; // In case the item isn't recognized
+        }
     }
-}
 
-// Function to get the image key based on the item name
-function getItemImageKey(itemName) {
-    switch(itemName) {
-        case "Yarn":
-            return 'yarnImage'; // Image key for Yarn
-        case "Fish":
-            return 'fishImage'; // Image key for Fish
-        case "Branch":
-            return 'branchImage'; // Image key for Branch
-        case "Catnip":
-            return 'catnipImage'; // Image key for Catnip
-        default:
-            return null; // In case the item isn't recognized
-    }
-}
+    showItemObtainedMessage(itemName, itemImageKey) {
+        if (itemImageKey) {
+            const message = `You obtained: ${itemName}`;
 
+            const text = this.add.text(
+                this.scale.width / 2, 
+                this.scale.height / 2 + 50, // Offset slightly for image display
+                message, 
+                { font: '15px TextFont', fill: '#ffffff', backgroundColor: '#000000', padding: { x: 10, y: 5 } }
+            ).setOrigin(0.5);
 
-    // Get the image key for the obtained item
-    let itemImageKey = getItemImageKey(itemName);
+            const image = this.add.image(
+                this.scale.width / 2, 
+                this.scale.height / 2 - 20, // Offset image above the text
+                itemImageKey // Use the dynamically set image key here
+            ).setScale(3); // Adjust scale if needed
 
-    if (itemImageKey) {
-        const message = `You obtained: ${itemName}`;
-
-        const text = this.add.text(
-            this.scale.width / 2, 
-            this.scale.height / 2 + 50, // Offset slightly for image display
-            message, 
-            { font: '15px TextFont', fill: '#ffffff', backgroundColor: '#000000', padding: { x: 10, y: 5 } }
-        ).setOrigin(0.5);
-
-        const image = this.add.image(
-            this.scale.width / 2, 
-            this.scale.height / 2 - 20, // Offset image above the text
-            itemImageKey // Use the dynamically set image key here
-        ).setScale(3); // Adjust scale if needed
-
-        this.time.delayedCall(1000, () => {
-            this.tweens.add({
-                targets: [text, image],
-                alpha: 0,
-                duration: 500,
-                onComplete: () => {
-                    text.destroy(); // Remove the text
-                    image.destroy(); // Remove the image
-                }
+            this.time.delayedCall(1000, () => {
+                this.tweens.add({
+                    targets: [text, image],
+                    alpha: 0,
+                    duration: 500,
+                    onComplete: () => {
+                        text.destroy(); // Remove the text
+                        image.destroy(); // Remove the image
+                    }
+                });
             });
-        });
+        }
     }
 }
-
     preload() {
         this.load.image('fence', 'assets/fence.png');
         this.load.spritesheet('mcIdle', 'assets/sprites/mcIdle.png', {
