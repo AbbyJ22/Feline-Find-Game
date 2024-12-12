@@ -118,6 +118,18 @@ class GameScene extends Phaser.Scene {
     }
 
 
+    // Function to get the image key for an item
+getItemImageKey(itemName) {
+    switch (itemName) {
+        case "Yarn": return 'yarnImage';
+        case "Fish": return 'fishImage';
+        case "Branch": return 'branchImage';
+        case "Catnip": return 'catnipImage';
+        default: return null;
+    }
+}
+
+
  addItemToInventory(itemName) {
     // Ensure the inventory array is initialized
     if (!this.inventory) {
@@ -180,17 +192,6 @@ showItemFeedback(message, itemName) {
                 }
             });
         });
-    }
-}
-
-// Function to get the image key for an item
-getItemImageKey(itemName) {
-    switch (itemName) {
-        case "Yarn": return 'yarnImage';
-        case "Fish": return 'fishImage';
-        case "Branch": return 'branchImage';
-        case "Catnip": return 'catnipImage';
-        default: return null;
     }
 }
 
