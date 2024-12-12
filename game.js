@@ -36,7 +36,7 @@ class StartMenuScene extends Phaser.Scene {
         // Background
         this.bg = this.add.tileSprite(0, 0, config.width, config.height, 'mainbg').setOrigin(0);
 
-this.score = 0; 
+this.score = parseInt(getCookie('score')) || 0;
 
 
         // Title text
@@ -93,10 +93,11 @@ this.score = 0;
             playButton.setScale(1);
         });
 
-        playButton.on('pointerdown', () => {
-            setCookie('score', this.score, 7);
-            this.scene.start('GameScene', { isNewGame: false });
-        });
+      playButton.on('pointerdown', () => {
+    const savedScore = parseInt(getCookie('score')) || 0;
+    this.score = savedScore; // Load the saved score before continuing
+    this.scene.start('GameScene', { isNewGame: false });
+});
     }
 
     update() {
