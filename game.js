@@ -117,14 +117,22 @@ class GameScene extends Phaser.Scene {
     }
 
 init(data) {
-    this.isNewGame = data.isNewGame || false;
+    // Ensure data is defined before using it
+    if (data) {
+        this.isNewGame = data.isNewGame || false;
+    } else {
+        this.isNewGame = false; // Default to false if no data is passed
+    }
+
+    // Load score from cookies only if it's not a new game
     if (!this.isNewGame) {
         const savedScore = parseInt(getCookie('score')) || 0;
-        this.score = savedScore; // Load the score from cookies
+        this.score = savedScore;
     } else {
-        this.score = 0; // Reset the score for a new game
+        this.score = 0; // Reset score for a new game
     }
 }
+
 
 
 
