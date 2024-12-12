@@ -183,6 +183,18 @@ showItemFeedback(message, itemName) {
     }
 }
 
+// Function to get the image key for an item
+getItemImageKey(itemName) {
+    switch (itemName) {
+        case "Yarn": return 'yarnImage';
+        case "Fish": return 'fishImage';
+        case "Branch": return 'branchImage';
+        case "Catnip": return 'catnipImage';
+        default: return null;
+    }
+}
+
+
     preload() {
         this.load.image('fence', 'assets/fence.png');
         this.load.spritesheet('mcIdle', 'assets/sprites/mcIdle.png', {
