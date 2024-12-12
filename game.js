@@ -215,7 +215,7 @@ init(data) {
             });
         }
     }
-}
+
     preload() {
         this.load.image('fence', 'assets/fence.png');
         this.load.spritesheet('mcIdle', 'assets/sprites/mcIdle.png', {
