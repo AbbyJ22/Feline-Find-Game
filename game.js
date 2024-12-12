@@ -120,6 +120,11 @@ class GameScene extends Phaser.Scene {
 
    addItemToInventory(itemName) {
 
+ if (!this.inventory) {
+        this.inventory = [];
+    }
+
+
      if (this.inventory.includes(itemName)) {
         return; // Item already collected, do nothing
     }
