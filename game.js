@@ -20,9 +20,6 @@ function deleteCookie(name) {
     document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 }
 
-
-
-
 class StartMenuScene extends Phaser.Scene {
     constructor() {
         super({ key: 'StartMenuScene' });
@@ -36,8 +33,8 @@ class StartMenuScene extends Phaser.Scene {
     create() {
 
 this.menuMusic = this.sound.add('menuMusic', {
-        volume: 0.5, // Adjust volume (0.0 to 1.0)
-        loop: true   // Set to true to make the music loop
+        volume: 0.5, 
+        loop: true 
     });
 
     this.menuMusic.play();
@@ -47,7 +44,7 @@ this.menuMusic = this.sound.add('menuMusic', {
 this.score = parseInt(getCookie('score')) || 0;
 
 
-        // Title text
+      
         this.add.text(config.width / 2, config.height / 3, 'Feline Find', {
             fontFamily: 'CustomFont',
             fontSize: '40px',
@@ -56,7 +53,7 @@ this.score = parseInt(getCookie('score')) || 0;
         .setOrigin(0.5)
         .setShadow(5, 5, '#000000', 0, true, true);
 
-        // Play button
+       
         const playButton = this.add.text(config.width / 2, config.height / 2, 'Continue', {
             fontFamily: 'CustomFont',
             fontSize: '30px',
@@ -87,13 +84,10 @@ this.score = parseInt(getCookie('score')) || 0;
 
         newGameButton.on('pointerdown', () => {
             this.menuMusic.stop();
-            // Delete the cookies to start a new game
-            deleteCookie('score'); // Delete the score cookie
-            this.scene.start('GameScene', { isNewGame: true }); // Start the game with no saved progress
+            deleteCookie('score');
+            this.scene.start('GameScene', { isNewGame: true });
         });
 
-
-        // Play button interactions
         playButton.on('pointerover', () => {
             playButton.setScale(1.2);
         });
@@ -105,30 +99,26 @@ this.score = parseInt(getCookie('score')) || 0;
       playButton.on('pointerdown', () => {
         this.menuMusic.stop();
     const savedScore = parseInt(getCookie('score')) || 0;
-    this.score = savedScore; // Load the saved score before continuing
+    this.score = savedScore; 
     this.scene.start('GameScene', { isNewGame: false });
 });
     }
 
     update() {
-        this.bg.tilePositionX += 1; // Moving the background
+        this.bg.tilePositionX += 1; 
     }
 }
 
 class GameScene extends Phaser.Scene {
-    // Declare class fields
-    cats = []; // Initialize an empty array to store cats
+    cats = [];
     currentCatIndex = 0;
     shownCats = [];
     inventory = [];
 
     constructor() {
         super({ key: 'GameScene' });
-        // You can also initialize any specific logic here if needed
     }
 
-
-    // Function to get the image key for an item
 getItemImageKey(itemName) {
     switch (itemName) {
         case "Yarn": return 'yarnImage';
@@ -139,41 +129,32 @@ getItemImageKey(itemName) {
     }
 }
 
-
  addItemToInventory(itemName) {
-    // Ensure the inventory array is initialized
     if (!this.inventory) {
         this.inventory = [];
     }
 
-    // Prevent adding duplicate items
     if (this.inventory.includes(itemName)) {
         console.log(`Item "${itemName}" already in inventory.`);
-        return; // Item already collected, do nothing
+        return; 
     }
 
-    // Enforce a maximum limit of 4 items
     if (this.inventory.length >= 4) {
         console.log("Inventory is full. Cannot add more items.");
-        return; // Stop adding items if the limit is reached
+        return;
     }
 
-    // Add the item to the inventory and increment the score
     this.inventory.push(itemName);
-    this.score = this.inventory.length; // Ensure score matches inventory size
-
-    // Update the score display
+    this.score = this.inventory.length;
     this.scoreText.setText(`Items: ${this.score}/4`);
     setCookie('score', this.score, 7);
 
     console.log(`Item "${itemName}" added. Current inventory: ${this.inventory}`);
 
-    // Display item feedback (optional)
     const message = `You obtained: ${itemName}`;
     this.showItemFeedback(message, itemName);
 }
 
-// Helper function to display feedback for obtaining items
 showItemFeedback(message, itemName) {
     const itemImageKey = this.getItemImageKey(itemName);
 
@@ -195,10 +176,10 @@ showItemFeedback(message, itemName) {
             this.tweens.add({
                 targets: [text, image],
                 alpha: 0,
-                duration: 500,
+                duration: 1000,
                 onComplete: () => {
-                    text.destroy(); // Remove the text
-                    image.destroy(); // Remove the image
+                    text.destroy(); 
+                    image.destroy(); 
                 }
             });
         });
@@ -240,29 +221,26 @@ showItemFeedback(message, itemName) {
             this.load.image('branchImage', 'assets/sprites/branch.png');
             this.load.image('catnipImage', 'assets/sprites/catnip.png');
 
-
-        // Fix: WebFont loader is added correctly
         this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
     }
 
     create(data) {
 
   this.forestMusic = this.sound.add('forestMusic', {
-        volume: 0.5, // Adjust volume (0.0 to 1.0)
-        loop: true   // Set to true to make the music loop
+        volume: 0.5, 
+        loop: true  
     });
 
-    this.forestMusic.play(); // Start playing the music
+    this.forestMusic.play(); 
 
         WebFont.load({
         custom: {
-            families: ['TextFont'], // Font name as defined in your CSS
+            families: ['TextFont'], 
         },
         active: () => {
             const savedScore = parseInt(getCookie('score')) || 0;
             this.score = savedScore;
 
-            // Display the score on the screen after the font is loaded
             this.scoreText = this.add.text(500, 25, `Items: ${this.score}/4`, { font: '18px TextFont', fill: '#000000' });
             this.scoreText.setDepth(10);
             this.scoreText.setScale(1);
@@ -271,12 +249,10 @@ showItemFeedback(message, itemName) {
 
 
          if (data.isNewGame) {
-            // Reset game state for a new game
             this.resetGame();
               this.shownCats = [];
                this.inventory = [];
         } else {
-            // Load progress (from cookies or other saved states)
             this.loadProgress();
              this.shownCats = [];
 
@@ -287,13 +263,11 @@ showItemFeedback(message, itemName) {
            this.currentCat = this.cats[this.currentCatIndex];
              this.showText(this.currentCat.dialogue);
 
-        // Initialize background scroll speed
-        this.bgScrollSpeed = 0;
+          this.bgScrollSpeed = 0;
 
-        // Set up the background
+    
         this.bg = this.add.tileSprite(0, 0, config.width, config.height, 'fence').setOrigin(0);
 
-        // Create animations
         this.anims.create({
             key: 'Idle',
             frames: this.anims.generateFrameNumbers('mcIdle', { start: 0, end: 1 }),
@@ -306,9 +280,6 @@ showItemFeedback(message, itemName) {
             frameRate: 4,
             repeat: -1
         });
-
-
-
          this.anims.create({
             key: 'One',
             frames: this.anims.generateFrameNumbers('oneIdle', { start: 0, end: 1 }),
@@ -334,13 +305,11 @@ showItemFeedback(message, itemName) {
             repeat: -1
         });
 
-        // Main character sprite
         this.mcIdle = this.add.sprite(328.5, 355, 'mcIdle');
         this.mcIdle.setScale(4);
         this.mcIdle.setOrigin(0.5, 0.5);
         this.mcIdle.anims.play('Idle');
 
-        // Display text with a delay
         this.time.delayedCall(1000, () => {
             const startingDialogue = {
                 text: "Hello there! You must be new in the neighborhood, right?",
@@ -369,7 +338,7 @@ showItemFeedback(message, itemName) {
             this.showText(startingDialogue);
         });
 }
-// Shuffle the cats array to get random order
+
 shuffleCats() {
     this.cats = [
       {
@@ -603,29 +572,27 @@ shuffleCats() {
         }
     ];
 
-    // Fisher-Yates shuffle algorithm
     for (let i = this.cats.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [this.cats[i], this.cats[j]] = [this.cats[j], this.cats[i]]; // Swap elements
+        [this.cats[i], this.cats[j]] = [this.cats[j], this.cats[i]]; 
     }
 }
-// Show the dialogue for the next cat in the shuffled order
+
 showNextCatDialogue() {
     if (this.currentCatIndex < this.cats.length) {
         const cat = this.cats[this.currentCatIndex];
         this.currentCatIndex++;
 
-        // Create sprite for the cat
+
         const catSprite = this.add.sprite(360, 355, cat.spriteKey);
         catSprite.setScale(4);
         catSprite.setOrigin(0.5, 0.5);
         catSprite.anims.play(cat.animationKey);
 
-        // Show cat's dialogue
+
         this.showText(cat.dialogue);
     }
 }
-// Function to show text and options
 showText(dialogue) {
     const textBox = this.add.text(50, config.height / 1.5, dialogue.text, {
         fontFamily: 'CustomFont',
@@ -633,7 +600,6 @@ showText(dialogue) {
         fill: '#FFFFFF',
     });
 
-    // Show options as buttons
     dialogue.options.forEach((option, index) => {
         const optionButton = this.add.text(50, config.height / 1.5 + 40 + (index * 40), option.label, {
             fontFamily: 'CustomFont',
@@ -654,9 +620,9 @@ showText(dialogue) {
         const { text, options } = dialogue;
 
         const textbox = this.add.graphics();
-        const borderColor = 0x3E2A47; // Dark border color
-        const borderThickness = 3;    // Thickness of the border
-        const fillColor = 0xE5AA70;   // Fill color
+        const borderColor = 0x3E2A47; 
+        const borderThickness = 3;  
+        const fillColor = 0xE5AA70; 
 
         const boxX = 20;
         const boxY = 20;
@@ -665,12 +631,9 @@ showText(dialogue) {
 
         textbox.fillStyle(fillColor, 1);
         textbox.fillRect(boxX, boxY, boxWidth, boxHeight);
-
-        // Draw the border
         textbox.lineStyle(borderThickness, borderColor, 1);
         textbox.strokeRect(boxX, boxY, boxWidth, boxHeight);
 
-        // Add text to the textbox
         const textStyle = {
             fontFamily: 'TextFont',
             fontSize: '18px',
@@ -682,7 +645,6 @@ showText(dialogue) {
         const optionBoxes = [];
         const optionTexts = [];
 
-        // Add option buttons
         options.forEach((option, index) => {
             const optionBoxWidth = 400;
             const optionBoxHeight = 30;
@@ -710,17 +672,16 @@ showText(dialogue) {
             });
 
             optionText.on('pointerdown', () => {
-                // Remove current dialogue elements
                 mainText.destroy();
                 optionBoxes.forEach(box => box.clear());
                 optionTexts.forEach(text => text.destroy());
 
                 if (option.action) {
-                    option.action(); // Trigger the action
+                    option.action();
                 }
 
                 if (option.next) {
-                    this.showText(option.next); // Show the next dialogue
+                    this.showText(option.next); 
                 }
             });
 
@@ -729,26 +690,20 @@ showText(dialogue) {
         });
     }
 startWalking() {
-    // If there's an existing cat sprite, destroy it when starting the walk again
     if (this.catSprite) {
         this.catSprite.destroy();
     }
 
-    // Play walking animation
     this.mcIdle.anims.play('Walk');
-
-    // Scroll the background
     this.bgScrollSpeed = 2;
 
-    // Stop the animation and scrolling after 3 seconds
     this.time.delayedCall(3000, () => {
         this.mcIdle.anims.play('Idle');
         this.bgScrollSpeed = 0;
 
 if (this.shownCats.length >= this.cats.length) {
     console.log("All cats have been shown.");
-    
-    
+       
     this.time.delayedCall(1000, () => {
          this.forestMusic.stop();
         this.scene.start('GameOverScene');
@@ -757,33 +712,25 @@ if (this.shownCats.length >= this.cats.length) {
     return;  
 }
 
-
-        // Randomly choose a cat that hasn't been shown yet
         let randomCatIndex;
         do {
             randomCatIndex = Phaser.Math.Between(0, this.cats.length - 1);
-        } while (this.shownCats.includes(randomCatIndex));  // Ensure the same cat isn't chosen again
+        } while (this.shownCats.includes(randomCatIndex)); 
 
         const randomCat = this.cats[randomCatIndex];
 
         if (randomCat && randomCat.spriteKey && randomCat.animationKey) {
-            // Create the sprite using the random cat's spriteKey
             const catSprite = this.add.sprite(425, 355, randomCat.spriteKey);
             catSprite.setScale(4);
             catSprite.setOrigin(0.5, 0.5);
-
-            // Play the animation using the animationKey of the selected cat
             catSprite.anims.play(randomCat.animationKey);
 
-            // Store the reference to the catSprite
             this.catSprite = catSprite;
 
-            // Show the cat's dialogue
             this.time.delayedCall(500, () => {
                 this.showText(randomCat.dialogue);
             });
 
-            // Add the shown cat to the shownCats array
             this.shownCats.push(randomCatIndex);
         } else {
             console.error("Selected cat is missing spriteKey or animationKey.");
@@ -826,15 +773,12 @@ class GameOverScene extends Phaser.Scene {
     create() {
 
 this.menuMusic = this.sound.add('menuMusic', {
-        volume: 0.5, // Adjust volume (0.0 to 1.0)
-        loop: true   // Set to true to make the music loop
+        volume: 0.5,
+        loop: true  
     });
-
     
         this.bg = this.add.tileSprite(0, 0, config.width, config.height, 'mainbg').setOrigin(0);
 
-
-        // Title text
         this.add.text(config.width / 2, config.height / 3, 'The End!', {
             fontFamily: 'CustomFont',
             fontSize: '40px',
@@ -843,8 +787,7 @@ this.menuMusic = this.sound.add('menuMusic', {
         .setOrigin(0.5)
         .setShadow(5, 5, '#000000', 0, true, true);
 
-        // Display the player's score
-        const savedScore = parseInt(getCookie('score')) || 0; // Retrieve the score from the cookie (or scene data)
+        const savedScore = parseInt(getCookie('score')) || 0; 
         this.add.text(config.width / 2, config.height / 2 + 50, `Your Score: ${savedScore}`, {
             fontFamily: 'CustomFont',
             fontSize: '30px',
@@ -853,7 +796,6 @@ this.menuMusic = this.sound.add('menuMusic', {
         .setOrigin(0.5)
         .setShadow(2, 2, '#000000', 0, true, true);
 
-        // Play button
         const restartButton = this.add.text(config.width / 2, config.height / 2 + 100, 'Main Menu', {
             fontFamily: 'CustomFont',
             fontSize: '30px',
@@ -864,7 +806,6 @@ this.menuMusic = this.sound.add('menuMusic', {
 
         restartButton.setInteractive();
 
-        // Play button interactions
         restartButton.on('pointerover', () => {
             restartButton.setScale(1.2);
         });
@@ -880,12 +821,9 @@ this.menuMusic = this.sound.add('menuMusic', {
     }
 
     update() {
-        this.bg.tilePositionX += 1; // Moving the background
+        this.bg.tilePositionX += 1; 
     }
 }
-
-
-
 
 
 const config = {
