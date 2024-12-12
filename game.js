@@ -246,6 +246,7 @@ class GameScene extends Phaser.Scene {
         } else {
             // Load progress (from cookies or other saved states)
             this.loadProgress();
+             this.shownCats = [];
         }
 
           this.shuffleCats();
