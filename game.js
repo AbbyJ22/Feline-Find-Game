@@ -30,10 +30,18 @@ class StartMenuScene extends Phaser.Scene {
 
     preload() {
         this.load.image('mainbg', 'assets/mainbg.png');
+        this.load.audio('menuMusic', 'assets/music/menu.mp3');
     }
 
     create() {
-        // Background
+
+this.menuMusic = this.sound.add('menuMusic', {
+        volume: 0.5, // Adjust volume (0.0 to 1.0)
+        loop: true   // Set to true to make the music loop
+    });
+
+    this.menuMusic.play();
+     
         this.bg = this.add.tileSprite(0, 0, config.width, config.height, 'mainbg').setOrigin(0);
 
 this.score = parseInt(getCookie('score')) || 0;
@@ -78,6 +86,7 @@ this.score = parseInt(getCookie('score')) || 0;
         });
 
         newGameButton.on('pointerdown', () => {
+            this.menuMusic.stop();
             // Delete the cookies to start a new game
             deleteCookie('score'); // Delete the score cookie
             this.scene.start('GameScene', { isNewGame: true }); // Start the game with no saved progress
@@ -94,6 +103,7 @@ this.score = parseInt(getCookie('score')) || 0;
         });
 
       playButton.on('pointerdown', () => {
+        this.menuMusic.stop();
     const savedScore = parseInt(getCookie('score')) || 0;
     this.score = savedScore; // Load the saved score before continuing
     this.scene.start('GameScene', { isNewGame: false });
@@ -198,6 +208,7 @@ showItemFeedback(message, itemName) {
 
     preload() {
         this.load.image('fence', 'assets/fence.png');
+         this.load.audio('forestMusic', 'assets/music/forest.mp3');
         this.load.spritesheet('mcIdle', 'assets/sprites/mcIdle.png', {
             frameWidth: 32,
             frameHeight: 32
@@ -235,6 +246,14 @@ showItemFeedback(message, itemName) {
     }
 
     create(data) {
+
+  this.forestMusic = this.sound.add('forestMusic', {
+        volume: 0.5, // Adjust volume (0.0 to 1.0)
+        loop: true   // Set to true to make the music loop
+    });
+
+    this.forestMusic.play(); // Start playing the music
+
         WebFont.load({
         custom: {
             families: ['TextFont'], // Font name as defined in your CSS
@@ -260,7 +279,7 @@ showItemFeedback(message, itemName) {
             // Load progress (from cookies or other saved states)
             this.loadProgress();
              this.shownCats = [];
-             
+
         }
 
           this.shuffleCats();
@@ -731,6 +750,7 @@ if (this.shownCats.length >= this.cats.length) {
     
     
     this.time.delayedCall(1000, () => {
+         this.forestMusic.stop();
         this.scene.start('GameOverScene');
     });
 
@@ -800,11 +820,19 @@ class GameOverScene extends Phaser.Scene {
 
     preload() {
         this.load.image('mainbg', 'assets/mainbg.png');
+ this.load.audio('menuMusic', 'assets/music/menu.mp3');
     }
 
     create() {
-        // Background
+
+this.menuMusic = this.sound.add('menuMusic', {
+        volume: 0.5, // Adjust volume (0.0 to 1.0)
+        loop: true   // Set to true to make the music loop
+    });
+
+    
         this.bg = this.add.tileSprite(0, 0, config.width, config.height, 'mainbg').setOrigin(0);
+
 
         // Title text
         this.add.text(config.width / 2, config.height / 3, 'The End!', {
@@ -846,6 +874,7 @@ class GameOverScene extends Phaser.Scene {
         });
 
         restartButton.on('pointerdown', () => {
+             this.menuMusic.stop();
             this.scene.start('StartMenuScene');
         });
     }
